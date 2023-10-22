@@ -1,14 +1,24 @@
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
-import './index.css';
+
+import { HomePage } from './pages/home';
+
+import './global.css';
 
 const rootElement = document.getElementById('root');
+
+const router = createBrowserRouter([
+  {
+    path: '/*',
+    element: <HomePage />,
+  },
+]);
 
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
-      <App />
+      <RouterProvider router={router} />
     </React.StrictMode>,
   );
 } else {
