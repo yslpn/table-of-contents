@@ -4,6 +4,8 @@ import { IEntities, IPage } from '../../../../types/toc-data';
 import { useActivePath } from '../active-path-provider/ActivePathProvider';
 import { useTransition, animated } from 'react-spring';
 
+import Arrow from '../../assets/arrow.svg?react';
+
 import style from './index.module.css';
 
 interface ITableOfContentsItem {
@@ -55,7 +57,11 @@ export const TableOfContentsItem = ({
       navigate(url);
     }
 
-    setActivePath(newPath);
+    if (activePath.at(-1) === id) {
+      setActivePath(path);
+    } else {
+      setActivePath(newPath);
+    }
   };
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
@@ -63,6 +69,16 @@ export const TableOfContentsItem = ({
       handleClick();
     }
   };
+
+  const highLightClasses: string[] = [];
+
+  if (!isLastActive && parentId && (activePath.includes(parentId) || isOpen)) {
+    if (activePath.at(-1) === parentId && activePath.indexOf(parentId) !== 0) {
+      highLightClasses.push(style.hightLightFirst);
+    } else {
+      highLightClasses.push(style.hightLightSecond);
+    }
+  }
 
   return (
     <>
@@ -75,18 +91,18 @@ export const TableOfContentsItem = ({
               onClick={handleClick}
               style={{
                 ...styles,
-                paddingLeft: `${
-                  pageData.level * 22 + 22 - (!pages ? -20 : 0)
-                }px`,
+                paddingLeft: `${pageData.level * 16 + 44}px`,
               }}
               className={clsx(
+                ...highLightClasses,
                 style.item,
-                isOpen && style.open,
                 isLastActive && style.last,
-                !pages && style.empty,
               )}
               onKeyDown={handleKeyDown}
             >
+              {pages && (
+                <Arrow className={clsx(style.icon, isOpen && style.open)} />
+              )}
               {title}
             </animated.div>
           ),

@@ -1,17 +1,19 @@
 .item {
   display: flex;
   gap: 4px;
-  align-items: flex-start;
+  align-items: center;
   width: 284px;
   padding: 8px 22px;
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
   line-height: 20px;
-  color: #19191c;
+  color: #fff;
+  text-wrap: balance;
   letter-spacing: 0.058px;
   cursor: pointer;
-  background-color: white;
+  user-select: none;
+  background-color: #19191c;
   transition: filter 0.125s ease-in-out;
 
   &:hover {
@@ -22,24 +24,14 @@
     outline: 2px solid #6b57ff;
   }
 
-  &::before {
-    display: block;
-    width: 16px;
-    height: 16px;
-    margin-top: 2px;
-    content: '';
-    background-image: url('./../../assets/arrow.svg');
-    transition: all 0.2s ease-in-out;
-  }
-}
-
-.open {
-  &::before {
-    transform: rotate(90deg);
+  @media (prefers-color-scheme: light) {
+    color: #19191c;
+    background-color: #fff;
   }
 }
 
 .last {
+  color: white;
   background-color: #6b57ff;
 
   &:hover {
@@ -48,8 +40,28 @@
   }
 }
 
-.empty {
-  &::before {
-    display: none;
+.hightLightFirst {
+  background-color: #303033;
+
+  @media (prefers-color-scheme: light) {
+    background-color: #e8e8e8;
   }
+}
+
+.hightLightSecond {
+  background-color: #252527;
+
+  @media (prefers-color-scheme: light) {
+    background-color: #f4f4f4;
+  }
+}
+
+.icon {
+  flex-shrink: 0;
+  margin-left: -20px;
+  transition: all 0.2s ease-in-out;
+}
+
+.open {
+  transform: rotate(90deg);
 }
