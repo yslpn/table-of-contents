@@ -1,4 +1,10 @@
 .wrapper {
   width: fit-content;
-  background-color: white;
+  background-color: #19191c;
+
+  @media (prefers-color-scheme: light) {
+    color: #19191c;
+    background-color: #fff;
+    border: 1px solid rgb(25 25 28 / 20%);
+  }
 }
