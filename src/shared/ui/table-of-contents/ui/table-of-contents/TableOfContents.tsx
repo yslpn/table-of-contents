@@ -1,5 +1,5 @@
 import { ActivePathProvider } from '../active-path-provider/ActivePathProvider';
-import { TableOfContentsSearch } from '../search-input/TableOfContentsSearch';
+import { TableOfContentsSearch } from '../table-of-contents-search/TableOfContentsSearch';
 import { TableOfContentsItem } from '../table-of-contents-item/TableOfContentsItem';
 
 import style from './index.module.css';
