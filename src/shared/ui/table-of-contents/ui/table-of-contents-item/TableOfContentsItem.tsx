@@ -59,7 +59,7 @@ export const TableOfContentsItem = ({
   };
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter' || event.key === 'Space') {
+    if (event.key === 'Enter' || event.key === ' ') {
       handleClick();
     }
   };
