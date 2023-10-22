@@ -47,7 +47,7 @@ export const TableOfContentsItem = ({
   });
 
   const newPath = [...path, id];
-  const isActive = activePath.includes(id);
+  const isOpen = activePath.includes(id);
   const isLastActive = activePath.at(-1) === id;
 
   const handleClick = () => {
@@ -59,7 +59,7 @@ export const TableOfContentsItem = ({
   };
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter' || event.key === ' ') {
+    if (event.key === 'Enter') {
       handleClick();
     }
   };
@@ -70,7 +70,7 @@ export const TableOfContentsItem = ({
         (styles, item) =>
           item && (
             <animated.div
-              role={url ? 'link' : 'button'}
+              role={'menuitem'}
               tabIndex={0}
               onClick={handleClick}
               style={{
@@ -81,9 +81,9 @@ export const TableOfContentsItem = ({
               }}
               className={clsx(
                 style.item,
-                isActive && style.active,
+                isOpen && style.open,
                 isLastActive && style.last,
-                !pages && style.noPages,
+                !pages && style.empty,
               )}
               onKeyDown={handleKeyDown}
             >

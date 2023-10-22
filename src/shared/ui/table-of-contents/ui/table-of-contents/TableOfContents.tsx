@@ -10,7 +10,9 @@ interface ITableOfContents {
 export const TableOfContents = ({ children }: ITableOfContents) => {
   return (
     <ActivePathProvider>
-      <div className={style.wrapper}>{children}</div>
+      <div className={style.wrapper} role={'menu'}>
+        {children}
+      </div>
     </ActivePathProvider>
   );
 };
