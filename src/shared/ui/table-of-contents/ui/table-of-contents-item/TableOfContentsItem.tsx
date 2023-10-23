@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import { useTransition, animated } from 'react-spring';
 import clsx from 'clsx';
 
@@ -19,10 +18,9 @@ export const TableOfContentsItem = ({
   entities,
   path,
 }: ITableOfContentsItem) => {
-  const { title, url, pages, id, parentId } = pageData;
+  const { title, pages, id, parentId } = pageData;
   const { activePath, setActivePath } = useActivePath();
   const { searchTerm, setSearchTerm } = useSearchTerm();
-  const navigate = useNavigate();
 
   const isSearchTermInTitle =
     searchTerm && title.toLowerCase().includes(searchTerm.toLowerCase());
@@ -61,10 +59,6 @@ export const TableOfContentsItem = ({
   const isLastActive = activePath.at(-1) === id;
 
   const handleClick = () => {
-    if (url) {
-      navigate(url);
-    }
-
     setSearchTerm('');
 
     if (activePath.at(-1) === id) {
