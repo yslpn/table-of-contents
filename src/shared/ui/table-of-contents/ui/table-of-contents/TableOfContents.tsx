@@ -3,24 +3,28 @@ import { TableOfContentsSearch } from '../table-of-contents-search/TableOfConten
 import { TableOfContentsItem } from '../table-of-contents-item/TableOfContentsItem';
 
 import style from './index.module.css';
+import { Spinner } from '../../../spinner';
 
 interface ITableOfContents {
   children: React.ReactNode;
+  withSearch: boolean;
 }
 
-export const TableOfContents = ({ children }: ITableOfContents) => {
-  if (!children) {
-    return 'Loading...';
-  }
-
+export const TableOfContents = ({ children, withSearch }: ITableOfContents) => {
   return (
     <ActivePathProvider>
       <div className={style.wrapper} role={'menu'}>
-        {children}
+        {withSearch && <TableOfContentsSearch />}
+        {children ? (
+          children
+        ) : (
+          <div className={style.spinnerWrapper}>
+            <Spinner />
+          </div>
+        )}
       </div>
     </ActivePathProvider>
   );
 };
 
 TableOfContents.Item = TableOfContentsItem;
-TableOfContents.Search = TableOfContentsSearch;

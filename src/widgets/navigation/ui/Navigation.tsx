@@ -7,8 +7,7 @@ interface INavigation {
 
 export const Navigation = ({ data }: INavigation) => {
   return (
-    <TableOfContents>
-      <TableOfContents.Search />
+    <TableOfContents withSearch={true}>
       {data?.topLevelIds.map((topId) => (
         <TableOfContents.Item
           key={topId}
