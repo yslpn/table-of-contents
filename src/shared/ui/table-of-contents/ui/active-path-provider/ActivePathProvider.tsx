@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import { createContext, useState } from 'react';
 
 export interface ActiveItemState {
   activePath: string[];
@@ -7,7 +7,7 @@ export interface ActiveItemState {
   setSearchTerm: (searchTerm: string) => void;
 }
 
-const ActivePathContext = createContext<ActiveItemState>({
+export const ActivePathContext = createContext<ActiveItemState>({
   activePath: [],
   setActivePath: () => {
     // init
@@ -33,12 +33,4 @@ export const ActivePathProvider = ({
       {children}
     </ActivePathContext.Provider>
   );
-};
-
-export const useActivePath = (): ActiveItemState => {
-  return useContext(ActivePathContext);
-};
-
-export const useSearchTerm = (): ActiveItemState => {
-  return useContext(ActivePathContext);
 };

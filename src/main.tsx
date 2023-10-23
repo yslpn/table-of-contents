@@ -1,5 +1,5 @@
+import { StrictMode } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import { HomePage } from './pages/home';
@@ -17,9 +17,9 @@ const router = createBrowserRouter([
 
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
-    <React.StrictMode>
+    <StrictMode>
       <RouterProvider router={router} />
-    </React.StrictMode>,
+    </StrictMode>,
   );
 } else {
   console.error("Could not find the 'root' element.");

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { debounce } from 'lodash-es';
-import { useSearchTerm } from '../active-path-provider/ActivePathProvider';
+
+import { useSearchTerm } from '../../lib/hooks';
 
 import style from './index.module.css';
 

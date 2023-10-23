@@ -4,11 +4,7 @@ import clsx from 'clsx';
 
 import { IEntities, IPage } from '../../../../types/toc-data';
 import Arrow from '../../assets/arrow.svg?react';
-
-import {
-  useActivePath,
-  useSearchTerm,
-} from '../active-path-provider/ActivePathProvider';
+import { useActivePath, useSearchTerm } from '../../lib/hooks';
 
 import style from './index.module.css';
 
