@@ -1,4 +1,4 @@
-import { ActivePathProvider } from '../active-path-provider/ActivePathProvider';
+import { TableOfContentsProvider } from '../table-of-contents-provider/TableOfContentsProvider';
 import { TableOfContentsSearch } from '../table-of-contents-search/TableOfContentsSearch';
 import { TableOfContentsItem } from '../table-of-contents-item/TableOfContentsItem';
 
@@ -12,7 +12,7 @@ interface ITableOfContents {
 
 export const TableOfContents = ({ children, withSearch }: ITableOfContents) => {
   return (
-    <ActivePathProvider>
+    <TableOfContentsProvider>
       <div className={style.wrapper} role={'menu'}>
         {withSearch && <TableOfContentsSearch />}
         {children ? (
@@ -23,7 +23,7 @@ export const TableOfContents = ({ children, withSearch }: ITableOfContents) => {
           </div>
         )}
       </div>
-    </ActivePathProvider>
+    </TableOfContentsProvider>
   );
 };
 

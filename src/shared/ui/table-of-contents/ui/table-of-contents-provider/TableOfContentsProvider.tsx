@@ -1,13 +1,13 @@
 import { createContext, useState } from 'react';
 
-export interface ActiveItemState {
+export interface TableOfContentsState {
   activePath: string[];
   setActivePath: (activePath: string[]) => void;
   searchTerm: string;
   setSearchTerm: (searchTerm: string) => void;
 }
 
-export const ActivePathContext = createContext<ActiveItemState>({
+export const TableOfContentsContext = createContext<TableOfContentsState>({
   activePath: [],
   setActivePath: () => {
     // init
@@ -18,7 +18,7 @@ export const ActivePathContext = createContext<ActiveItemState>({
   },
 });
 
-export const ActivePathProvider = ({
+export const TableOfContentsProvider = ({
   children,
 }: {
   children: React.ReactNode;
@@ -27,10 +27,10 @@ export const ActivePathProvider = ({
   const [searchTerm, setSearchTerm] = useState('');
 
   return (
-    <ActivePathContext.Provider
+    <TableOfContentsContext.Provider
       value={{ activePath, setActivePath, searchTerm, setSearchTerm }}
     >
       {children}
-    </ActivePathContext.Provider>
+    </TableOfContentsContext.Provider>
   );
 };
