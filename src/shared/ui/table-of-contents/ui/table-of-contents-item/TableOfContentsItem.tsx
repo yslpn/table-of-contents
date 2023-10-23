@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import { SpringValue, animated } from 'react-spring';
 import clsx from 'clsx';
 
@@ -33,27 +33,14 @@ export const TableOfContentsItem = ({
 }: ITableOfContentsItem) => {
   const { activePath, setActivePath } = useActivePath();
   const { searchTerm, setSearchTerm } = useSearchTerm();
+  const elementRef = useRef<HTMLDivElement>(null);
 
   const isOpen = activePath.includes(id);
   const isLastActive = activePath.at(-1) === id;
 
-  const handleClick = useCallback(() => {
-    setSearchTerm('');
-
-    if (activePath.at(-1) === id) {
-      setActivePath(newPath.slice(0, -1));
-    } else {
-      setActivePath(newPath);
-    }
-  }, [activePath, id, newPath, setActivePath, setSearchTerm]);
-
-  const handleKeyDown = useCallback(
-    (event: React.KeyboardEvent) => {
-      if (event.key === 'Enter') {
-        handleClick();
-      }
-    },
-    [handleClick],
+  const icon = useMemo(
+    () => pages && <Arrow className={clsx(style.icon, isOpen && style.open)} />,
+    [isOpen, pages],
   );
 
   let highLightClasses = '';
@@ -71,13 +58,35 @@ export const TableOfContentsItem = ({
     }
   }
 
-  const icon = useMemo(
-    () => pages && <Arrow className={clsx(style.icon, isOpen && style.open)} />,
-    [isOpen, pages],
+  const handleClick = useCallback(() => {
+    setSearchTerm('');
+
+    if (elementRef.current) {
+      elementRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    }
+
+    if (activePath.at(-1) === id) {
+      setActivePath(newPath.slice(0, -1));
+    } else {
+      setActivePath(newPath);
+    }
+  }, [activePath, id, newPath, setActivePath, setSearchTerm]);
+
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent) => {
+      if (event.key === 'Enter') {
+        handleClick();
+      }
+    },
+    [handleClick],
   );
 
   return (
     <animated.div
+      ref={elementRef}
       role={'menuitem'}
       tabIndex={0}
       onClick={handleClick}
