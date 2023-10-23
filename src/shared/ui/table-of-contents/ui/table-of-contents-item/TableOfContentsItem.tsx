@@ -12,8 +12,8 @@ interface ITableOfContentsItem {
   level: number;
   newPath: string[];
   pages?: string[];
-  title: string;
   parentId?: string;
+  title: string;
   styles: {
     opacity: SpringValue<number>;
     height: SpringValue<number>;
@@ -25,10 +25,10 @@ interface ITableOfContentsItem {
 export const TableOfContentsItem = ({
   id,
   level,
-  pages,
-  title,
   newPath,
+  pages,
   parentId,
+  title,
   styles,
 }: ITableOfContentsItem) => {
   const { activePath, setActivePath } = useActivePath();
@@ -37,6 +37,7 @@ export const TableOfContentsItem = ({
 
   const isOpen = activePath.includes(id);
   const isLastActive = activePath.at(-1) === id;
+  const isParentActive = parentId && activePath.includes(parentId);
 
   const icon = useMemo(
     () => pages && <Arrow className={clsx(style.icon, isOpen && style.open)} />,
@@ -45,13 +46,12 @@ export const TableOfContentsItem = ({
 
   let highLightClasses = '';
 
-  if (
-    !searchTerm &&
-    !isLastActive &&
-    parentId &&
-    (activePath.includes(parentId) || isOpen)
-  ) {
-    if (activePath.at(-1) === parentId && activePath.indexOf(parentId) !== 0) {
+  if (!searchTerm && !isLastActive && (isOpen || isParentActive)) {
+    const isParentLevelMoreThenOne =
+      parentId && activePath.indexOf(parentId) > 0;
+    const isCurrentLevel = activePath.at(-1) === parentId;
+
+    if (isCurrentLevel && isParentLevelMoreThenOne) {
       highLightClasses = style.hightLightFirst;
     } else {
       highLightClasses = style.hightLightSecond;
