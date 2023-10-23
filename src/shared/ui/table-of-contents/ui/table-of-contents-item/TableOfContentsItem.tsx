@@ -80,11 +80,7 @@ export const TableOfContentsItem = ({
         ...styles,
         paddingLeft: `${level * 16 + 44}px`,
       }}
-      className={clsx(
-        ...highLightClasses,
-        style.item,
-        isLastActive && style.last,
-      )}
+      className={clsx(highLightClasses, style.item, isLastActive && style.last)}
       onKeyDown={handleKeyDown}
     >
       {pages && <Arrow className={clsx(style.icon, isOpen && style.open)} />}
