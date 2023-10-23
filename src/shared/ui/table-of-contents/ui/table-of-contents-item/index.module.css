@@ -17,7 +17,7 @@
   transition: filter 0.125s ease-in-out;
 
   &:hover {
-    filter: brightness(95%);
+    filter: brightness(120%);
   }
 
   &:focus-visible {
@@ -27,6 +27,10 @@
   @media (prefers-color-scheme: light) {
     color: #19191c;
     background-color: #fff;
+
+    &:hover {
+      filter: brightness(95%);
+    }
   }
 }
 
