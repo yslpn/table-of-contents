@@ -1,9 +1,9 @@
 import { TableOfContentsProvider } from '../table-of-contents-provider/TableOfContentsProvider';
 import { TableOfContentsSearch } from '../table-of-contents-search/TableOfContentsSearch';
-import { TableOfContentsItem } from '../table-of-contents-item/TableOfContentsItem';
+import { TableOfContentsItemsContainer } from '../table-of-contents-items-container/TableOfContentsContainer';
+import { Spinner } from '../../../spinner';
 
 import style from './index.module.css';
-import { Spinner } from '../../../spinner';
 
 interface ITableOfContents {
   children: React.ReactNode;
@@ -27,4 +27,4 @@ export const TableOfContents = ({ children, withSearch }: ITableOfContents) => {
   );
 };
 
-TableOfContents.Item = TableOfContentsItem;
+TableOfContents.ItemsContainer = TableOfContentsItemsContainer;

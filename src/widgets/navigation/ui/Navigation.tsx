@@ -9,7 +9,7 @@ export const Navigation = ({ data }: INavigation) => {
   return (
     <TableOfContents withSearch={true}>
       {data?.topLevelIds.map((topId) => (
-        <TableOfContents.Item
+        <TableOfContents.ItemsContainer
           key={topId}
           pageData={data.entities.pages[topId]}
           entities={data.entities}
