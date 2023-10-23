@@ -1,9 +1,5 @@
-import { animated, useTransition } from 'react-spring';
-import clsx from 'clsx';
-
-import Arrow from '../../assets/arrow.svg?react';
-
-import style from './index.module.css';
+import { useTransition } from 'react-spring';
+import { TableOfContentsItem } from '../table-of-contents-item/TableOfContentsItem';
 
 interface ITableOfContentsItemAnimated {
   activePath: string[];
@@ -22,13 +18,13 @@ export const TableOfContentsItemAnimated = ({
   activePath,
   id,
   level,
-  pages,
   setSearchTerm,
   title,
   setActivePath,
   newPath,
   searchTerm,
   parentId,
+  pages,
 }: ITableOfContentsItemAnimated) => {
   const isSearchTermInTitle =
     searchTerm && title.toLowerCase().includes(searchTerm.toLowerCase());
@@ -63,63 +59,22 @@ export const TableOfContentsItemAnimated = ({
     config: { tension: 1000, friction: 120, duration: 200 },
   });
 
-  const isOpen = activePath.includes(id);
-  const isLastActive = activePath.at(-1) === id;
-
-  const handleClick = () => {
-    setSearchTerm('');
-
-    if (activePath.at(-1) === id) {
-      setActivePath(path);
-    } else {
-      setActivePath(newPath);
-    }
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter') {
-      handleClick();
-    }
-  };
-
-  const highLightClasses: string[] = [];
-
-  if (
-    !searchTerm &&
-    !isLastActive &&
-    parentId &&
-    (activePath.includes(parentId) || isOpen)
-  ) {
-    if (activePath.at(-1) === parentId && activePath.indexOf(parentId) !== 0) {
-      highLightClasses.push(style.hightLightFirst);
-    } else {
-      highLightClasses.push(style.hightLightSecond);
-    }
-  }
-
   return transitions(
     (styles, item) =>
       item && (
-        <animated.div
-          role={'menuitem'}
-          tabIndex={0}
-          onClick={handleClick}
-          style={{
-            ...styles,
-            paddingLeft: `${level * 16 + 44}px`,
-          }}
-          className={clsx(
-            ...highLightClasses,
-            style.item,
-            isLastActive && style.last,
-          )}
-          onKeyDown={handleKeyDown}
-        >
-          {pages && (
-            <Arrow className={clsx(style.icon, isOpen && style.open)} />
-          )}
-          {title}
-        </animated.div>
+        <TableOfContentsItem
+          activePath={activePath}
+          id={id}
+          level={level}
+          newPath={newPath}
+          searchTerm={searchTerm}
+          setActivePath={setActivePath}
+          setSearchTerm={setSearchTerm}
+          title={title}
+          styles={styles}
+          pages={pages}
+          parentId={parentId}
+        />
       ),
   );
 };
