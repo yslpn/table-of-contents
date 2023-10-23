@@ -20,7 +20,7 @@ export const TableOfContentsSearch = () => {
   }, [inputValue, debouncedSetSearchTerm]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value.toLocaleLowerCase());
+    setInputValue(event.target.value);
   };
 
   useEffect(() => {
