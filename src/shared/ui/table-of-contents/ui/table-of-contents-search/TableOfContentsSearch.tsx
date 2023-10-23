@@ -1,20 +1,37 @@
+import { useState, useEffect } from 'react';
+import { debounce } from 'lodash-es';
 import { useSearchTerm } from '../active-path-provider/ActivePathProvider';
 
 import style from './index.module.css';
 
 export const TableOfContentsSearch = () => {
   const { searchTerm, setSearchTerm } = useSearchTerm();
+  const [inputValue, setInputValue] = useState(searchTerm);
+
+  const debouncedSetSearchTerm = debounce(setSearchTerm, 500);
+
+  useEffect(() => {
+    debouncedSetSearchTerm(inputValue);
+
+    return () => {
+      debouncedSetSearchTerm.cancel();
+    };
+  }, [inputValue, debouncedSetSearchTerm]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value.toLocaleLowerCase());
+    setInputValue(event.target.value.toLocaleLowerCase());
   };
+
+  useEffect(() => {
+    setInputValue(searchTerm);
+  }, [searchTerm]);
 
   return (
     <input
       className={style.input}
       type="text"
       placeholder="Search..."
-      value={searchTerm}
+      value={inputValue}
       onChange={handleChange}
     />
   );

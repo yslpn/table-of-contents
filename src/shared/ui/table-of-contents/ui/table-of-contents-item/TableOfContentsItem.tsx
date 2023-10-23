@@ -1,10 +1,14 @@
-import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
-import { IEntities, IPage } from '../../../../types/toc-data';
-import { useActivePath } from '../active-path-provider/ActivePathProvider';
 import { useTransition, animated } from 'react-spring';
+import clsx from 'clsx';
 
+import { IEntities, IPage } from '../../../../types/toc-data';
 import Arrow from '../../assets/arrow.svg?react';
+
+import {
+  useActivePath,
+  useSearchTerm,
+} from '../active-path-provider/ActivePathProvider';
 
 import style from './index.module.css';
 
@@ -21,12 +25,20 @@ export const TableOfContentsItem = ({
 }: ITableOfContentsItem) => {
   const { title, url, pages, id, parentId } = pageData;
   const { activePath, setActivePath } = useActivePath();
+  const { searchTerm, setSearchTerm } = useSearchTerm();
   const navigate = useNavigate();
+
+  const isSearchTermInTitle =
+    searchTerm && title.toLowerCase().includes(searchTerm.toLowerCase());
 
   const isTopLevelItem = path.length === 0;
   const isParentItemActive = parentId && activePath.includes(parentId);
 
-  const transitions = useTransition(isTopLevelItem || isParentItemActive, {
+  const isVisibleItem = searchTerm
+    ? isSearchTermInTitle
+    : isTopLevelItem || isParentItemActive;
+
+  const transitions = useTransition(isVisibleItem, {
     from: {
       opacity: 0,
       height: 0,
@@ -57,6 +69,8 @@ export const TableOfContentsItem = ({
       navigate(url);
     }
 
+    setSearchTerm('');
+
     if (activePath.at(-1) === id) {
       setActivePath(path);
     } else {
@@ -72,7 +86,12 @@ export const TableOfContentsItem = ({
 
   const highLightClasses: string[] = [];
 
-  if (!isLastActive && parentId && (activePath.includes(parentId) || isOpen)) {
+  if (
+    !searchTerm &&
+    !isLastActive &&
+    parentId &&
+    (activePath.includes(parentId) || isOpen)
+  ) {
     if (activePath.at(-1) === parentId && activePath.indexOf(parentId) !== 0) {
       highLightClasses.push(style.hightLightFirst);
     } else {
