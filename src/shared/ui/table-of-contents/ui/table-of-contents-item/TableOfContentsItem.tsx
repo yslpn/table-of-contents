@@ -1,19 +1,17 @@
+import { useCallback, useMemo } from 'react';
 import { SpringValue, animated } from 'react-spring';
 import clsx from 'clsx';
 
 import Arrow from '../../assets/arrow.svg?react';
+import { useActivePath, useSearchTerm } from '../../lib/hooks';
 
 import style from './index.module.css';
 
 interface ITableOfContentsItem {
-  activePath: string[];
   id: string;
   level: number;
   newPath: string[];
   pages?: string[];
-  searchTerm: string;
-  setActivePath: (path: string[]) => void;
-  setSearchTerm: (searchTerm: string) => void;
   title: string;
   parentId?: string;
   styles: {
@@ -25,22 +23,21 @@ interface ITableOfContentsItem {
 }
 
 export const TableOfContentsItem = ({
-  activePath,
   id,
   level,
   pages,
-  setSearchTerm,
   title,
-  setActivePath,
   newPath,
-  searchTerm,
   parentId,
   styles,
 }: ITableOfContentsItem) => {
+  const { activePath, setActivePath } = useActivePath();
+  const { searchTerm, setSearchTerm } = useSearchTerm();
+
   const isOpen = activePath.includes(id);
   const isLastActive = activePath.at(-1) === id;
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     setSearchTerm('');
 
     if (activePath.at(-1) === id) {
@@ -48,13 +45,16 @@ export const TableOfContentsItem = ({
     } else {
       setActivePath(newPath);
     }
-  };
+  }, [activePath, id, newPath, setActivePath, setSearchTerm]);
 
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter') {
-      handleClick();
-    }
-  };
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent) => {
+      if (event.key === 'Enter') {
+        handleClick();
+      }
+    },
+    [handleClick],
+  );
 
   let highLightClasses = '';
 
@@ -71,6 +71,11 @@ export const TableOfContentsItem = ({
     }
   }
 
+  const icon = useMemo(
+    () => pages && <Arrow className={clsx(style.icon, isOpen && style.open)} />,
+    [isOpen, pages],
+  );
+
   return (
     <animated.div
       role={'menuitem'}
@@ -83,7 +88,7 @@ export const TableOfContentsItem = ({
       className={clsx(highLightClasses, style.item, isLastActive && style.last)}
       onKeyDown={handleKeyDown}
     >
-      {pages && <Arrow className={clsx(style.icon, isOpen && style.open)} />}
+      {icon}
       {title}
     </animated.div>
   );
