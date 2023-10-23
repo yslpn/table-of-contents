@@ -1,0 +1,71 @@
+.item {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  width: 284px;
+  padding: 8px 22px;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  color: #fff;
+  text-wrap: balance;
+  letter-spacing: 0.058px;
+  cursor: pointer;
+  user-select: none;
+  background-color: #19191c;
+  transition: filter 0.125s ease-in-out;
+
+  &:hover {
+    filter: brightness(120%);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #6b57ff;
+  }
+
+  @media (prefers-color-scheme: light) {
+    color: #19191c;
+    background-color: #fff;
+
+    &:hover {
+      filter: brightness(95%);
+    }
+  }
+}
+
+.last {
+  color: white;
+  background-color: #6b57ff;
+
+  &:hover {
+    background-color: #6b57ff;
+    filter: brightness(95%);
+  }
+}
+
+.hightLightFirst {
+  background-color: #303033;
+
+  @media (prefers-color-scheme: light) {
+    background-color: #e8e8e8;
+  }
+}
+
+.hightLightSecond {
+  background-color: #252527;
+
+  @media (prefers-color-scheme: light) {
+    background-color: #f4f4f4;
+  }
+}
+
+.icon {
+  flex-shrink: 0;
+  margin-left: -20px;
+  transition: all 0.2s ease-in-out;
+}
+
+.open {
+  transform: rotate(90deg);
+}
