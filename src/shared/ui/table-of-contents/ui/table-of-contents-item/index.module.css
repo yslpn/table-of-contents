@@ -61,10 +61,12 @@
 }
 
 .highlightSearchTerm {
-  background-color: #7b7b7b;
+  color: #000;
+  background-color: #fff;
 
   @media (prefers-color-scheme: light) {
-    background-color: #ccc;
+    color: #fff;
+    background-color: #27282c;
   }
 }
 
