@@ -53,9 +53,9 @@ export const TableOfContentsItem = ({
     const isCurrentLevel = activePath.at(-1) === parentId;
 
     if (isCurrentLevel && isParentLevelMoreThenOne) {
-      highLightClasses = style.hightLightFirst;
+      highLightClasses = style.highlightFirstLevel;
     } else {
-      highLightClasses = style.hightLightSecond;
+      highLightClasses = style.highlightSecondLevel;
     }
   }
 

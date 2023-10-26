@@ -44,7 +44,7 @@
   }
 }
 
-.hightLightFirst {
+.highlightFirstLevel {
   background-color: #303033;
 
   @media (prefers-color-scheme: light) {
@@ -52,7 +52,7 @@
   }
 }
 
-.hightLightSecond {
+.highlightSecondLevel {
   background-color: #252527;
 
   @media (prefers-color-scheme: light) {
