@@ -1,4 +1,4 @@
-import { useTransition } from 'react-spring';
+import { useTransition } from '@react-spring/web';
 import { useActivePath, useSearchTerm } from '../../lib/hooks';
 import { TableOfContentsItem } from '../table-of-contents-item/TableOfContentsItem';
 

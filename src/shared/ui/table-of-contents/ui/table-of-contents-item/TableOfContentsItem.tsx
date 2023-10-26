@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useRef } from 'react';
-import { SpringValue, animated } from 'react-spring';
+import { SpringValue, animated } from '@react-spring/web';
 import clsx from 'clsx';
 
 import Arrow from '../../assets/arrow.svg?react';
