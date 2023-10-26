@@ -39,25 +39,13 @@ export const TableOfContentsItem = ({
   const isOpen = activePath.includes(id);
   const isLastActive = activePath.at(-1) === id;
   const isParentActive = parentId && activePath.includes(parentId);
+  const isParentLevelNotFirst = parentId && activePath.indexOf(parentId) > 0;
+  const isCurrentLevel = activePath.at(-1) === parentId;
 
   const icon = useMemo(
     () => pages && <Arrow className={clsx(style.icon, isOpen && style.open)} />,
     [isOpen, pages],
   );
-
-  let highlightLevelClass = '';
-
-  if (!searchTerm && !isLastActive && (isOpen || isParentActive)) {
-    const isParentLevelMoreThenOne =
-      parentId && activePath.indexOf(parentId) > 0;
-    const isCurrentLevel = activePath.at(-1) === parentId;
-
-    if (isCurrentLevel && isParentLevelMoreThenOne) {
-      highlightLevelClass = style.highlightFirstLevel;
-    } else {
-      highlightLevelClass = style.highlightSecondLevel;
-    }
-  }
 
   const handleClick = useCallback(() => {
     if (searchTerm) {
@@ -116,7 +104,12 @@ export const TableOfContentsItem = ({
         paddingLeft: `${level * 16 + 44}px`,
       }}
       className={clsx(
-        highlightLevelClass,
+        !searchTerm &&
+          !isLastActive &&
+          (isOpen || isParentActive) &&
+          (isCurrentLevel && isParentLevelNotFirst
+            ? style.highlightFirstLevel
+            : style.highlightSecondLevel),
         style.item,
         isLastActive && style.last,
       )}
