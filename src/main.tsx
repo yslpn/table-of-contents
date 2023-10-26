@@ -7,7 +7,7 @@ import './global.css';
 
 const rootElement = document.getElementById('root');
 
-if (rootElement) {
+if (rootElement instanceof HTMLElement) {
   ReactDOM.createRoot(rootElement).render(
     <StrictMode>
       <HomePage />
