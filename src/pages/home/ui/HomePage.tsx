@@ -1,13 +1,27 @@
-import useSWR from 'swr';
 import { fetcher } from '../../../shared/api/fetcher';
 import { MainLayout } from '../../../shared/ui/main-layout';
 import { ITOCData } from '../../../shared/types/toc-data';
 
 import { Header } from '../../../widgets/header';
 import { Navigation } from '../../../widgets/navigation/ui/Navigation';
+import { useEffect, useState } from 'react';
 
 export const HomePage = () => {
-  const { data } = useSWR<ITOCData>('./toc-data.json', fetcher);
+  const [data, setData] = useState<ITOCData>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await fetcher<ITOCData>('./toc-data.json');
+
+        setData(result);
+      } catch (error) {
+        console.error('Error fetching data: ', error);
+      }
+    };
+
+    void fetchData();
+  }, []);
 
   return (
     <>
