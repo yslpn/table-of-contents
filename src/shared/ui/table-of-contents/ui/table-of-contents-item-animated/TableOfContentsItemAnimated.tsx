@@ -1,24 +1,19 @@
 import { useTransition } from '@react-spring/web';
 import { useActivePath, useSearchTerm } from '../../lib/hooks';
+import { IPage } from '../../../../types/toc-data';
 import { TableOfContentsItem } from '../table-of-contents-item/TableOfContentsItem';
 
 interface ITableOfContentsItemAnimated {
-  id: string;
-  level: number;
+  pageData: IPage;
   newPath: string[];
-  pages?: string[];
-  title: string;
-  parentId?: string;
 }
 
 export const TableOfContentsItemAnimated = ({
-  id,
-  level,
-  title,
+  pageData,
   newPath,
-  parentId,
-  pages,
 }: ITableOfContentsItemAnimated) => {
+  const { title, pages, id, parentId, level } = pageData;
+
   const { activePath } = useActivePath();
   const { searchTerm } = useSearchTerm();
 

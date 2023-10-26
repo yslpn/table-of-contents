@@ -12,19 +12,13 @@ export const TableOfContentsItemsContainer = ({
   entities,
   path,
 }: ITableOfContentsItemsContainer) => {
-  const { title, pages, id, parentId } = pageData;
+  const { pages, id } = pageData;
   const newPath = [...path, id];
 
   return (
     <>
-      <TableOfContentsItemAnimated
-        title={title}
-        pages={pages}
-        level={pageData.level}
-        id={id}
-        newPath={newPath}
-        parentId={parentId}
-      />
+      <TableOfContentsItemAnimated pageData={pageData} newPath={newPath} />
+
       {pages?.map((pageId) => (
         <TableOfContentsItemsContainer
           key={pageId}
