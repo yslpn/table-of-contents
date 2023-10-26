@@ -45,7 +45,7 @@ export const TableOfContentsItem = ({
     [isOpen, pages],
   );
 
-  let highLightClasses = '';
+  let highlightLevelClass = '';
 
   if (!searchTerm && !isLastActive && (isOpen || isParentActive)) {
     const isParentLevelMoreThenOne =
@@ -53,9 +53,9 @@ export const TableOfContentsItem = ({
     const isCurrentLevel = activePath.at(-1) === parentId;
 
     if (isCurrentLevel && isParentLevelMoreThenOne) {
-      highLightClasses = style.highlightFirstLevel;
+      highlightLevelClass = style.highlightFirstLevel;
     } else {
-      highLightClasses = style.highlightSecondLevel;
+      highlightLevelClass = style.highlightSecondLevel;
     }
   }
 
@@ -115,7 +115,11 @@ export const TableOfContentsItem = ({
         ...styles,
         paddingLeft: `${level * 16 + 44}px`,
       }}
-      className={clsx(highLightClasses, style.item, isLastActive && style.last)}
+      className={clsx(
+        highlightLevelClass,
+        style.item,
+        isLastActive && style.last,
+      )}
       onKeyDown={handleKeyDown}
     >
       {icon}
