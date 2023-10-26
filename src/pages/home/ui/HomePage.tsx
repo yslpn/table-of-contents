@@ -1,10 +1,10 @@
+import { useEffect, useState } from 'react';
 import { fetcher } from '../../../shared/api/fetcher';
 import { MainLayout } from '../../../shared/ui/main-layout';
 import { ITOCData } from '../../../shared/types/toc-data';
 
 import { Header } from '../../../widgets/header';
 import { Navigation } from '../../../widgets/navigation/ui/Navigation';
-import { useEffect, useState } from 'react';
 
 export const HomePage = () => {
   const [data, setData] = useState<ITOCData>();
