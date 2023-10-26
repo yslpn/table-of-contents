@@ -3,6 +3,7 @@ import { SpringValue, animated } from 'react-spring';
 import clsx from 'clsx';
 
 import Arrow from '../../assets/arrow.svg?react';
+import { getHighlightedTextParts } from '../../lib/helpers';
 import { useActivePath, useSearchTerm } from '../../lib/hooks';
 
 import style from './index.module.css';
@@ -86,6 +87,24 @@ export const TableOfContentsItem = ({
     [handleClick],
   );
 
+  const highlightSearchTerm = (text: string, searchTerm: string) => {
+    const parts = getHighlightedTextParts(text, searchTerm);
+
+    return (
+      <span>
+        {parts.map((part, index) =>
+          part.highlight ? (
+            <span key={index} className={style.highlightSearchTerm}>
+              {part.text}
+            </span>
+          ) : (
+            part.text
+          ),
+        )}
+      </span>
+    );
+  };
+
   return (
     <animated.div
       ref={elementRef}
@@ -100,7 +119,7 @@ export const TableOfContentsItem = ({
       onKeyDown={handleKeyDown}
     >
       {icon}
-      {title}
+      {searchTerm ? highlightSearchTerm(title, searchTerm) : title}
     </animated.div>
   );
 };

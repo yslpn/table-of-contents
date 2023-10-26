@@ -60,6 +60,14 @@
   }
 }
 
+.highlightSearchTerm {
+  background-color: #7b7b7b;
+
+  @media (prefers-color-scheme: light) {
+    background-color: #ccc;
+  }
+}
+
 .icon {
   flex-shrink: 0;
   margin-left: -20px;
