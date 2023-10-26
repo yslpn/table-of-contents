@@ -9,7 +9,7 @@ export const TableOfContentsPathContext =
   createContext<ITableOfContentsPathState>({
     activePath: [],
     setActivePath: () => {
-      // init
+      // No-operation function: placeholder that will be replaced by the context provider's function.
     },
   });
 

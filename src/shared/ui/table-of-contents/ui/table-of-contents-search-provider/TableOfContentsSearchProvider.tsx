@@ -9,7 +9,7 @@ export const TableOfContentsSearchContext =
   createContext<ITableOfContentsSearchState>({
     searchTerm: '',
     setSearchTerm: () => {
-      // init
+      // No-operation function: placeholder that will be replaced by the context provider's function.
     },
   });
 
