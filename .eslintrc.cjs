@@ -26,4 +26,5 @@ module.exports = {
       version: 'detect',
     },
   },
+  include: ['src/**/*', '*.config.cjs'],
 };
