@@ -11,14 +11,6 @@ export const TableOfContentsSearch = () => {
 
   const debouncedSetSearchTerm = debounce(setSearchTerm, 500);
 
-  useEffect(() => {
-    debouncedSetSearchTerm(inputValue);
-
-    return () => {
-      debouncedSetSearchTerm.cancel();
-    };
-  }, [inputValue, debouncedSetSearchTerm]);
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
@@ -26,6 +18,14 @@ export const TableOfContentsSearch = () => {
   useEffect(() => {
     setInputValue(searchTerm);
   }, [searchTerm]);
+
+  useEffect(() => {
+    debouncedSetSearchTerm(inputValue);
+
+    return () => {
+      debouncedSetSearchTerm.cancel();
+    };
+  }, [inputValue, debouncedSetSearchTerm]);
 
   return (
     <input

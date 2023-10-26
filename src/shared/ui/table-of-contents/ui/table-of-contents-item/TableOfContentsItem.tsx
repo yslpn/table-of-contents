@@ -59,7 +59,9 @@ export const TableOfContentsItem = ({
   }
 
   const handleClick = useCallback(() => {
-    setSearchTerm('');
+    if (searchTerm) {
+      setSearchTerm('');
+    }
 
     if (elementRef.current) {
       elementRef.current.scrollIntoView({
@@ -73,7 +75,7 @@ export const TableOfContentsItem = ({
     } else {
       setActivePath(newPath);
     }
-  }, [activePath, id, newPath, setActivePath, setSearchTerm]);
+  }, [activePath, id, newPath, searchTerm, setActivePath, setSearchTerm]);
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent) => {
