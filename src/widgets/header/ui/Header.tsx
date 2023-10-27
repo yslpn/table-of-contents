@@ -1,8 +1,8 @@
 import { memo } from 'react';
-import { MainLayout } from '../../../shared/ui/main-layout';
 
 import HomeIcon from '../assets/home.svg?react';
 import css from './index.module.css';
+import { MainLayout } from '../../../shared';
 
 export const Header = memo(() => {
   return (

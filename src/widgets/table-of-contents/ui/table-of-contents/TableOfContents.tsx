@@ -1,5 +1,5 @@
-import { ITableOfContentsData } from '../../../../shared/types/toc-data';
-import { Spinner } from '../../../../shared/ui/spinner';
+import { type ITableOfContentsData, Spinner } from '../../../../shared';
+
 import { SearchTermInput } from '../search-term-input/SearchTermInput';
 import { RecursiveTreeRenderer } from '../recursive-tree-renderer/RecursiveTreeRenderer';
 import { SearchTermProvider } from '../search-term-provider/SearchTermProvider';

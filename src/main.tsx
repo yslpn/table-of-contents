@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 
-import { HomePage } from './pages/home';
+import { HomePage } from './pages';
 
 import './global.css';
 

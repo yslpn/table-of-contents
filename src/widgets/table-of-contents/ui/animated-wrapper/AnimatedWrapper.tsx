@@ -1,5 +1,5 @@
 import { useTransition } from '@react-spring/web';
-import type { IPage } from '../../../../shared/types/toc-data';
+import type { IPage } from '../../../../shared';
 import { useActivePath, useSearchTerm } from '../../lib/hooks';
 import { Item } from '../Item/Item';
 

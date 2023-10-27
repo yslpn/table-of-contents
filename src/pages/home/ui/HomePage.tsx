@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
-import { fetcher } from '../../../shared/api/fetcher';
-import { MainLayout } from '../../../shared/ui/main-layout';
-import type { ITableOfContentsData } from '../../../shared/types/toc-data';
 
-import { Header } from '../../../widgets/header';
-import { TableOfContents } from '../../../widgets/table-of-contents';
+import {
+  type ITableOfContentsData,
+  MainLayout,
+  fetcher,
+} from '../../../shared';
+
+import { Header, TableOfContents } from '../../../widgets';
 
 export const HomePage = () => {
   const [data, setData] = useState<ITableOfContentsData>();
