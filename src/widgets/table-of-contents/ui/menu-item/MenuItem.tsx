@@ -49,12 +49,7 @@ export const MenuItem = ({
     if (searchTerm) {
       setSearchTerm('');
     }
-
-    if (isLastActive) {
-      setActivePath(newPath.slice(0, -1));
-    } else {
-      setActivePath(newPath);
-    }
+    setActivePath(isLastActive ? newPath.slice(0, -1) : newPath);
   }, [isLastActive, newPath, searchTerm, setActivePath, setSearchTerm]);
 
   const handleKeyDown = useCallback(
@@ -86,13 +81,16 @@ export const MenuItem = ({
 
   useEffect(() => {
     if (isLastActive) {
-      setTimeout(() => {
+      const timeout = setTimeout(() => {
         elementRef.current?.scrollIntoView({
           behavior: 'smooth',
           block: 'center',
         });
-        // 250 is animation duration
       }, 250);
+
+      return () => {
+        clearTimeout(timeout);
+      };
     }
   }, [isLastActive]);
 
