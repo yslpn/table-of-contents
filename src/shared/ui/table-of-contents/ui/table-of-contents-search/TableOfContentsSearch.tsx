@@ -30,7 +30,7 @@ export const TableOfContentsSearch = () => {
   return (
     <input
       className={style.input}
-      type="text"
+      type="search"
       placeholder="Search..."
       value={inputValue}
       onChange={handleChange}
