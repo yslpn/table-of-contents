@@ -16,19 +16,19 @@
     outline: 2px solid #6b57ff;
   }
 
+  &::-webkit-search-decoration,
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-results-button,
+  &::-webkit-search-results-decoration {
+    display: none;
+  }
+
+  &[type='search']::-moz-search-clear-button {
+    display: none;
+  }
+
   @media (prefers-color-scheme: light) {
     color: #19191c;
     background-color: #fff;
   }
-}
-
-.input::-webkit-search-decoration,
-.input::-webkit-search-cancel-button,
-.input::-webkit-search-results-button,
-.input::-webkit-search-results-decoration {
-  display: none;
-}
-
-.input[type='search']::-moz-search-clear-button {
-  display: none;
 }
