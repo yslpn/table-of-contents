@@ -93,11 +93,14 @@ export const Item = ({
   };
 
   useEffect(() => {
-    if (isLastActive && elementRef.current) {
-      elementRef.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
+    if (isLastActive) {
+      setTimeout(() => {
+        elementRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+        // 200 is animation duration
+      }, 200);
     }
   }, [isLastActive]);
 
