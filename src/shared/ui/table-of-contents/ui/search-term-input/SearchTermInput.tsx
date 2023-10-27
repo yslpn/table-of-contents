@@ -5,7 +5,7 @@ import { useSearchTerm } from '../../lib/hooks';
 
 import style from './index.module.css';
 
-export const TableOfContentsSearch = () => {
+export const SearchTermInput = () => {
   const { searchTerm, setSearchTerm } = useSearchTerm();
   const [inputValue, setInputValue] = useState(searchTerm);
 

@@ -1,15 +1,15 @@
 import { TableOfContents } from '../../../shared/ui/table-of-contents';
-import { ITOCData } from '../../../shared/types/toc-data';
+import type { ITableOfContentsData } from '../../../shared/types/toc-data';
 
 interface INavigation {
-  data?: ITOCData;
+  data?: ITableOfContentsData;
 }
 
 export const Navigation = ({ data }: INavigation) => {
   return (
-    <TableOfContents withSearch={true}>
+    <TableOfContents withSearchInput={true}>
       {data?.topLevelIds.map((topId) => (
-        <TableOfContents.ItemsContainer
+        <TableOfContents.RecursiveTreeRenderer
           key={topId}
           pageData={data.entities.pages[topId]}
           entities={data.entities}

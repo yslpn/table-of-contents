@@ -8,7 +8,7 @@ import { useActivePath, useSearchTerm } from '../../lib/hooks';
 
 import style from './index.module.css';
 
-interface ITableOfContentsItem {
+interface IItem {
   id: string;
   level: number;
   newPath: string[];
@@ -23,7 +23,7 @@ interface ITableOfContentsItem {
   };
 }
 
-export const TableOfContentsItem = ({
+export const Item = ({
   id,
   level,
   newPath,
@@ -31,7 +31,7 @@ export const TableOfContentsItem = ({
   parentId,
   title,
   styles,
-}: ITableOfContentsItem) => {
+}: IItem) => {
   const { activePath, setActivePath } = useActivePath();
   const { searchTerm, setSearchTerm } = useSearchTerm();
   const elementRef = useRef<HTMLDivElement>(null);

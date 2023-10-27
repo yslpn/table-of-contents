@@ -1,22 +1,26 @@
-import { TableOfContentsSearch } from '../table-of-contents-search/TableOfContentsSearch';
-import { TableOfContentsItemsContainer } from '../table-of-contents-items-container/TableOfContentsContainer';
+import { SearchTermInput } from '../search-term-input/SearchTermInput';
+import { RecursiveTreeRenderer } from '../recursive-tree-renderer/RecursiveTreeRenderer';
 import { Spinner } from '../../../spinner';
 
+import { SearchTermProvider } from '../search-term-provider/SearchTermProvider';
+import { ActivePathProvider } from '../active-path-provider/ActivePathProvider';
+
 import style from './index.module.css';
-import { TableOfContentsSearchProvider } from '../table-of-contents-search-provider/TableOfContentsSearchProvider';
-import { TableOfContentsPathProvider } from '../table-of-contents-path-provider/TableOfContentsPathProvider';
 
 interface ITableOfContents {
   children: React.ReactNode;
-  withSearch: boolean;
+  withSearchInput: boolean;
 }
 
-export const TableOfContents = ({ children, withSearch }: ITableOfContents) => {
+export const TableOfContents = ({
+  children,
+  withSearchInput,
+}: ITableOfContents) => {
   return (
-    <TableOfContentsSearchProvider>
-      <TableOfContentsPathProvider>
+    <SearchTermProvider>
+      <ActivePathProvider>
         <div className={style.wrapper} role={'menu'}>
-          {withSearch && <TableOfContentsSearch />}
+          {withSearchInput && <SearchTermInput />}
           {children ? (
             children
           ) : (
@@ -25,9 +29,9 @@ export const TableOfContents = ({ children, withSearch }: ITableOfContents) => {
             </div>
           )}
         </div>
-      </TableOfContentsPathProvider>
-    </TableOfContentsSearchProvider>
+      </ActivePathProvider>
+    </SearchTermProvider>
   );
 };
 
-TableOfContents.ItemsContainer = TableOfContentsItemsContainer;
+TableOfContents.RecursiveTreeRenderer = RecursiveTreeRenderer;

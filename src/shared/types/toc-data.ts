@@ -13,7 +13,7 @@ export interface IEntities {
   pages: Record<string, IPage>;
 }
 
-export interface ITOCData {
+export interface ITableOfContentsData {
   entities: IEntities;
   topLevelIds: string[];
 }

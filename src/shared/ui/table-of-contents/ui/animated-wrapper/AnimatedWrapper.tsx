@@ -1,17 +1,14 @@
 import { useTransition } from '@react-spring/web';
+import type { IPage } from '../../../../types/toc-data';
 import { useActivePath, useSearchTerm } from '../../lib/hooks';
-import { IPage } from '../../../../types/toc-data';
-import { TableOfContentsItem } from '../table-of-contents-item/TableOfContentsItem';
+import { Item } from '../Item/Item';
 
-interface ITableOfContentsItemAnimated {
+interface IAnimatedWrapper {
   pageData: IPage;
   newPath: string[];
 }
 
-export const TableOfContentsItemAnimated = ({
-  pageData,
-  newPath,
-}: ITableOfContentsItemAnimated) => {
+export const AnimatedWrapper = ({ pageData, newPath }: IAnimatedWrapper) => {
   const { title, pages, id, parentId, level } = pageData;
 
   const { activePath } = useActivePath();
@@ -51,7 +48,7 @@ export const TableOfContentsItemAnimated = ({
   return transitions(
     (styles, item) =>
       item && (
-        <TableOfContentsItem
+        <Item
           id={id}
           level={level}
           newPath={newPath}

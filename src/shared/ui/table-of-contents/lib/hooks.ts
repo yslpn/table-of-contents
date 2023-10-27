@@ -1,17 +1,11 @@
 import { useContext } from 'react';
-import {
-  ITableOfContentsSearchState,
-  TableOfContentsSearchContext,
-} from '../ui/table-of-contents-search-provider/TableOfContentsSearchProvider';
-import {
-  ITableOfContentsPathState,
-  TableOfContentsPathContext,
-} from '../ui/table-of-contents-path-provider/TableOfContentsPathProvider';
+import { SearchTermContext } from '../ui/search-term-provider/SearchTermProvider';
+import { PathContext } from '../ui/active-path-provider/ActivePathProvider';
 
-export const useActivePath = (): ITableOfContentsPathState => {
-  return useContext(TableOfContentsPathContext);
+export const useActivePath = () => {
+  return useContext(PathContext);
 };
 
-export const useSearchTerm = (): ITableOfContentsSearchState => {
-  return useContext(TableOfContentsSearchContext);
+export const useSearchTerm = () => {
+  return useContext(SearchTermContext);
 };
