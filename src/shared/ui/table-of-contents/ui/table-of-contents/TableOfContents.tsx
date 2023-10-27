@@ -6,7 +6,7 @@ import { Spinner } from '../../../spinner';
 import { SearchTermProvider } from '../search-term-provider/SearchTermProvider';
 import { ActivePathProvider } from '../active-path-provider/ActivePathProvider';
 
-import style from './index.module.css';
+import css from './index.module.css';
 
 interface ITableOfContents {
   children: ReactNode;
@@ -20,12 +20,12 @@ export const TableOfContents = ({
   return (
     <SearchTermProvider>
       <ActivePathProvider>
-        <div className={style.wrapper} role={'menu'}>
+        <div className={css.wrapper} role={'menu'}>
           {withSearchInput && <SearchTermInput />}
           {children ? (
             children
           ) : (
-            <div className={style.spinnerWrapper}>
+            <div className={css.spinnerWrapper}>
               <Spinner />
             </div>
           )}

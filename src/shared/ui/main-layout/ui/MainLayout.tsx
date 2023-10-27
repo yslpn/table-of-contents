@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { clsx } from 'clsx';
 
-import style from './index.module.css';
+import css from './index.module.css';
 
 interface IMainLayout {
   children: ReactNode;
@@ -9,9 +9,9 @@ interface IMainLayout {
   style?: CSSProperties;
 }
 
-export const MainLayout = ({ children, className }: IMainLayout) => {
+export const MainLayout = ({ children, className, style }: IMainLayout) => {
   return (
-    <div className={clsx(style.container, className)} style={style}>
+    <div className={clsx(css.container, className)} style={style}>
       {children}
     </div>
   );

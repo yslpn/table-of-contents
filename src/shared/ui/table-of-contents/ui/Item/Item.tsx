@@ -12,7 +12,7 @@ import Arrow from '../../assets/arrow.svg?react';
 import { getHighlightedTextParts } from '../../lib/helpers';
 import { useActivePath, useSearchTerm } from '../../lib/hooks';
 
-import style from './index.module.css';
+import css from './index.module.css';
 
 interface IItem {
   id: string;
@@ -49,7 +49,7 @@ export const Item = ({
   const isCurrentLevel = activePath.at(-1) === parentId;
 
   const icon = useMemo(
-    () => pages && <Arrow className={clsx(style.icon, isOpen && style.open)} />,
+    () => pages && <Arrow className={clsx(css.icon, isOpen && css.open)} />,
     [isOpen, pages],
   );
 
@@ -81,7 +81,7 @@ export const Item = ({
       <span>
         {parts.map((part, index) =>
           part.highlight ? (
-            <span key={index} className={style.highlightSearchTerm}>
+            <span key={index} className={css.highlightSearchTerm}>
               {part.text}
             </span>
           ) : (
@@ -116,10 +116,10 @@ export const Item = ({
           !isLastActive &&
           (isOpen || isParentActive) &&
           (isCurrentLevel && isParentLevelNotFirst
-            ? style.highlightFirstLevel
-            : style.highlightSecondLevel),
-        style.item,
-        isLastActive && style.last,
+            ? css.highlightFirstLevel
+            : css.highlightSecondLevel),
+        css.item,
+        isLastActive && css.last,
       )}
       onKeyDown={handleKeyDown}
     >

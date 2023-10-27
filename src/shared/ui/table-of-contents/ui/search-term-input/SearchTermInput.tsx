@@ -3,7 +3,7 @@ import { debounce } from 'lodash-es';
 
 import { useSearchTerm } from '../../lib/hooks';
 
-import style from './index.module.css';
+import css from './index.module.css';
 
 export const SearchTermInput = () => {
   const { searchTerm, setSearchTerm } = useSearchTerm();
@@ -29,7 +29,7 @@ export const SearchTermInput = () => {
 
   return (
     <input
-      className={style.input}
+      className={css.input}
       type="search"
       placeholder="Search..."
       value={inputValue}
