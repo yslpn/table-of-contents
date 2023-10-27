@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { SpringValue, animated } from '@react-spring/web';
 import clsx from 'clsx';
 
@@ -52,13 +52,6 @@ export const Item = ({
       setSearchTerm('');
     }
 
-    if (elementRef.current) {
-      elementRef.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
-    }
-
     if (activePath.at(-1) === id) {
       setActivePath(newPath.slice(0, -1));
     } else {
@@ -92,6 +85,15 @@ export const Item = ({
       </span>
     );
   };
+
+  useEffect(() => {
+    if (isLastActive && elementRef.current) {
+      elementRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    }
+  }, [isLastActive]);
 
   return (
     <animated.div
