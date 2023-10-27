@@ -4,6 +4,10 @@
   width: 284px;
   padding: 8px 22px;
   padding-left: 44px;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
   color: #fff;
   background-color: #19191c;
   border: none;
@@ -16,4 +20,15 @@
     color: #19191c;
     background-color: #fff;
   }
+}
+
+.input::-webkit-search-decoration,
+.input::-webkit-search-cancel-button,
+.input::-webkit-search-results-button,
+.input::-webkit-search-results-decoration {
+  display: none;
+}
+
+.input[type='search']::-moz-search-clear-button {
+  display: none;
 }
