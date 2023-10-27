@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { SearchTermInput } from '../search-term-input/SearchTermInput';
 import { RecursiveTreeRenderer } from '../recursive-tree-renderer/RecursiveTreeRenderer';
 import { Spinner } from '../../../spinner';
@@ -8,7 +9,7 @@ import { ActivePathProvider } from '../active-path-provider/ActivePathProvider';
 import style from './index.module.css';
 
 interface ITableOfContents {
-  children: React.ReactNode;
+  children: ReactNode;
   withSearchInput: boolean;
 }
 

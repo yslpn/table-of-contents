@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type ChangeEvent } from 'react';
 import { debounce } from 'lodash-es';
 
 import { useSearchTerm } from '../../lib/hooks';
@@ -11,7 +11,7 @@ export const SearchTermInput = () => {
 
   const debouncedSetSearchTerm = debounce(setSearchTerm, 500);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 

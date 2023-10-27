@@ -1,4 +1,4 @@
-import { createContext, useMemo, useState } from 'react';
+import { type ReactNode, createContext, useMemo, useState } from 'react';
 
 interface ISearchTermState {
   searchTerm: string;
@@ -12,11 +12,7 @@ export const SearchTermContext = createContext<ISearchTermState>({
   },
 });
 
-export const SearchTermProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+export const SearchTermProvider = ({ children }: { children: ReactNode }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const contextValue = useMemo(() => {

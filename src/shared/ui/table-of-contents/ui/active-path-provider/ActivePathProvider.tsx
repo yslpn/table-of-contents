@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { type ReactNode, createContext, useState } from 'react';
 
 interface IPathState {
   activePath: string[];
@@ -12,11 +12,7 @@ export const PathContext = createContext<IPathState>({
   },
 });
 
-export const ActivePathProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+export const ActivePathProvider = ({ children }: { children: ReactNode }) => {
   const [activePath, setActivePath] = useState<string[]>([]);
 
   return (

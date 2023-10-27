@@ -1,6 +1,12 @@
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  type KeyboardEvent,
+} from 'react';
 import { type SpringValue, animated } from '@react-spring/web';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 
 import Arrow from '../../assets/arrow.svg?react';
 import { getHighlightedTextParts } from '../../lib/helpers';
@@ -60,7 +66,7 @@ export const Item = ({
   }, [activePath, id, newPath, searchTerm, setActivePath, setSearchTerm]);
 
   const handleKeyDown = useCallback(
-    (event: React.KeyboardEvent) => {
+    (event: KeyboardEvent) => {
       if (event.key === 'Enter') {
         handleClick();
       }

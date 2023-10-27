@@ -1,13 +1,18 @@
-import { ReactNode } from 'react';
-import clsx from 'clsx';
+import type { CSSProperties, ReactNode } from 'react';
+import { clsx } from 'clsx';
 
 import style from './index.module.css';
 
-interface Props {
+interface IMainLayout {
   children: ReactNode;
   className?: string;
+  style?: CSSProperties;
 }
 
-export const MainLayout = ({ children, className }: Props) => {
-  return <div className={clsx(style.container, className)}>{children}</div>;
+export const MainLayout = ({ children, className }: IMainLayout) => {
+  return (
+    <div className={clsx(style.container, className)} style={style}>
+      {children}
+    </div>
+  );
 };
