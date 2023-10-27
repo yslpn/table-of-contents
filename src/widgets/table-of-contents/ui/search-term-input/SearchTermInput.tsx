@@ -28,12 +28,18 @@ export const SearchTermInput = () => {
   }, [inputValue, debouncedSetSearchTerm]);
 
   return (
-    <input
-      className={css.input}
-      type="search"
-      placeholder="Search..."
-      value={inputValue}
-      onChange={handleChange}
-    />
+    <>
+      <label htmlFor="search-input" className={'visuallyHidden'}>
+        Search menu items
+      </label>
+      <input
+        id="search-input"
+        className={css.input}
+        type="search"
+        placeholder="Search..."
+        value={inputValue}
+        onChange={handleChange}
+      />
+    </>
   );
 };

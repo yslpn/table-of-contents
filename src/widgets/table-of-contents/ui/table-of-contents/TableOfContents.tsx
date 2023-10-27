@@ -19,23 +19,25 @@ export const TableOfContents = ({
   return (
     <SearchTermProvider>
       <ActivePathProvider>
-        <div className={css.wrapper} role={'menu'}>
+        <nav className={css.wrapper}>
           {withSearchInput && <SearchTermInput />}
-          {data ? (
-            data.topLevelIds.map((topId) => (
-              <RecursiveTreeRenderer
-                key={topId}
-                pageData={data.entities.pages[topId]}
-                entities={data.entities}
-                path={[]}
-              />
-            ))
-          ) : (
-            <div className={css.spinnerWrapper}>
-              <Spinner />
-            </div>
-          )}
-        </div>
+          <div role="menu" aria-label="Navigation menu">
+            {data ? (
+              data.topLevelIds.map((topId) => (
+                <RecursiveTreeRenderer
+                  key={topId}
+                  pageData={data.entities.pages[topId]}
+                  entities={data.entities}
+                  path={[]}
+                />
+              ))
+            ) : (
+              <div className={css.spinnerWrapper}>
+                <Spinner />
+              </div>
+            )}
+          </div>
+        </nav>
       </ActivePathProvider>
     </SearchTermProvider>
   );
