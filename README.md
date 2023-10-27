@@ -1,5 +1,64 @@
 # Table of Contents
 
+## Structure
+
+I utilized [Feature-Sliced Design](https://feature-sliced.design/), an architectural methodology tailored for frontend projects.
+
+```
+.
+├── pages
+│   ├── home
+│   │   └── ui
+│   │       └── HomePage.tsx
+│   └── index.ts
+├── shared
+│   ├── api
+│   │   └── fetcher.ts
+│   ├── index.ts
+│   ├── types
+│   │   └── toc-data.ts
+│   └── ui
+│       ├── main-layout
+│       │   ├── MainLayout.tsx
+│       │   └── index.module.css
+│       └── spinner
+│           ├── Spinner.tsx
+│           └── index.module.css
+└── widgets
+    ├── header
+    │   ├── assets
+    │   │   └── home.svg
+    │   └── ui
+    │       ├── Header.tsx
+    │       └── index.module.css
+    ├── index.ts
+    └── table-of-contents
+        ├── assets
+        │   └── arrow.svg
+        ├── lib
+        │   ├── helpers.ts
+        │   └── hooks.ts
+        └── ui
+            ├── item
+            │   ├── Item.tsx
+            │   └── index.module.css
+            ├── active-path-provider
+            │   └── ActivePathProvider.tsx
+            ├── animated-wrapper
+            │   └── AnimatedWrapper.tsx
+            ├── recursive-tree-renderer
+            │   ├── RecursiveTreeRenderer.tsx
+            │   └── index.module.css
+            ├── search-term-input
+            │   ├── SearchTermInput.tsx
+            │   └── index.module.css
+            ├── search-term-provider
+            │   └── SearchTermProvider.tsx
+            └── table-of-contents
+                ├── TableOfContents.tsx
+                └── index.module.css
+```
+
 ## Available Scripts
 
 In the project directory, you can run the following scripts:
