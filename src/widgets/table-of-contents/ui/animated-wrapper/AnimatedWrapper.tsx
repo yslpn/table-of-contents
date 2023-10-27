@@ -1,7 +1,7 @@
 import { useTransition } from '@react-spring/web';
 import type { IPage } from '../../../../shared';
 import { useActivePath, useSearchTerm } from '../../lib/hooks';
-import { Item } from '../Item/Item';
+import { Item } from '../item/Item';
 
 interface IAnimatedWrapper {
   pageData: IPage;
