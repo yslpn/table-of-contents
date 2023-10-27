@@ -1,9 +1,9 @@
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 
-import { HomePage } from './pages';
-
 import './global.css';
+
+import { HomePage } from './pages';
 
 const rootElement = document.getElementById('root');
 
