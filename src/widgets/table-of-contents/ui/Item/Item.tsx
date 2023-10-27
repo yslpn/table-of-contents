@@ -5,7 +5,6 @@ import {
   useRef,
   type KeyboardEvent,
 } from 'react';
-import { type SpringValue, animated } from '@react-spring/web';
 import { clsx } from 'clsx';
 
 import Arrow from '../../assets/arrow.svg?react';
@@ -21,23 +20,9 @@ interface IItem {
   pages?: string[];
   parentId?: string;
   title: string;
-  styles: {
-    opacity: SpringValue<number>;
-    height: SpringValue<number>;
-    paddingTop: SpringValue<number>;
-    paddingBottom: SpringValue<number>;
-  };
 }
 
-export const Item = ({
-  id,
-  level,
-  newPath,
-  pages,
-  parentId,
-  title,
-  styles,
-}: IItem) => {
+export const Item = ({ id, level, newPath, pages, parentId, title }: IItem) => {
   const { activePath, setActivePath } = useActivePath();
   const { searchTerm, setSearchTerm } = useSearchTerm();
   const elementRef = useRef<HTMLDivElement>(null);
@@ -99,19 +84,18 @@ export const Item = ({
           behavior: 'smooth',
           block: 'center',
         });
-        // 200 is animation duration
-      }, 200);
+        // 250 is animation duration
+      }, 250);
     }
   }, [isLastActive]);
 
   return (
-    <animated.div
+    <div
       ref={elementRef}
       role={'menuitem'}
       tabIndex={0}
       onClick={handleClick}
       style={{
-        ...styles,
         paddingLeft: `${level * 16 + 44}px`,
       }}
       className={clsx(
@@ -128,6 +112,6 @@ export const Item = ({
     >
       {icon}
       {searchTerm ? highlightSearchTerm(title, searchTerm) : title}
-    </animated.div>
+    </div>
   );
 };

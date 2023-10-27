@@ -41,8 +41,6 @@ I utilized [Feature-Sliced Design](https://feature-sliced.design/), an architect
         └── ui
             ├── active-path-provider
             │   └── ActivePathProvider.tsx
-            ├── animated-wrapper
-            │   └── AnimatedWrapper.tsx
             ├── item
             │   ├── Item.tsx
             │   └── index.module.css

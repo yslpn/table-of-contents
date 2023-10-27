@@ -39,6 +39,7 @@ export const SearchTermInput = () => {
         placeholder="Search..."
         value={inputValue}
         onChange={handleChange}
+        autoComplete="off"
       />
     </>
   );

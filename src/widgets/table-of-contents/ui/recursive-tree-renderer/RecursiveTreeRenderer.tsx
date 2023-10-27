@@ -1,5 +1,6 @@
 import type { IEntities, IPage } from '../../../../shared';
-import { AnimatedWrapper } from '../animated-wrapper/AnimatedWrapper';
+import { useActivePath, useSearchTerm } from '../../lib/hooks';
+import { Item } from '../item/Item';
 
 interface IRecursiveTreeRenderer {
   pageData: IPage;
@@ -12,13 +13,33 @@ export const RecursiveTreeRenderer = ({
   entities,
   path,
 }: IRecursiveTreeRenderer) => {
-  const { pages, id } = pageData;
+  const { title, pages, id, parentId, level } = pageData;
+
   const newPath = [...path, id];
+
+  const { activePath } = useActivePath();
+  const { searchTerm } = useSearchTerm();
+
+  const isSearchTermInTitle =
+    searchTerm && title.toLowerCase().includes(searchTerm.toLowerCase());
+  const isTopLevelItem = path.length === 0;
+  const isParentItemActive = parentId && activePath.includes(parentId);
+  const isVisibleItem = searchTerm
+    ? isSearchTermInTitle
+    : isTopLevelItem || isParentItemActive;
 
   return (
     <>
-      <AnimatedWrapper pageData={pageData} newPath={newPath} />
-
+      {isVisibleItem && (
+        <Item
+          id={id}
+          level={level}
+          newPath={newPath}
+          title={title}
+          pages={pages}
+          parentId={parentId}
+        />
+      )}
       {pages?.map((pageId) => (
         <RecursiveTreeRenderer
           key={pageId}

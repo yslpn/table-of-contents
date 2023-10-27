@@ -16,7 +16,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@react-spring/web": "^9.7.3",
+    "@formkit/auto-animate": "^0.8.0",
     "clsx": "^2.0.0",
     "lodash-es": "^4.17.21",
     "react": "^18.2.0",
