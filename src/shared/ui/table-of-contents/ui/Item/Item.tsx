@@ -58,12 +58,12 @@ export const Item = ({
       setSearchTerm('');
     }
 
-    if (activePath.at(-1) === id) {
+    if (isLastActive) {
       setActivePath(newPath.slice(0, -1));
     } else {
       setActivePath(newPath);
     }
-  }, [activePath, id, newPath, searchTerm, setActivePath, setSearchTerm]);
+  }, [isLastActive, newPath, searchTerm, setActivePath, setSearchTerm]);
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
