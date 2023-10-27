@@ -17,12 +17,19 @@ interface IItem {
   id: string;
   level: number;
   newPath: string[];
-  pages?: string[];
   parentId?: string;
   title: string;
+  pages?: string[];
 }
 
-export const Item = ({ id, level, newPath, pages, parentId, title }: IItem) => {
+export const MenuItem = ({
+  id,
+  level,
+  newPath,
+  pages,
+  parentId,
+  title,
+}: IItem) => {
   const { activePath, setActivePath } = useActivePath();
   const { searchTerm, setSearchTerm } = useSearchTerm();
   const elementRef = useRef<HTMLDivElement>(null);

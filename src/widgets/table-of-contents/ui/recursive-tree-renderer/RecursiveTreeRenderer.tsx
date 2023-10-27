@@ -1,6 +1,6 @@
 import type { IEntities, IPage } from '../../../../shared';
 import { useActivePath, useSearchTerm } from '../../lib/hooks';
-import { Item } from '../item/Item';
+import { MenuItem } from '../menu-item/MenuItem';
 
 interface IRecursiveTreeRenderer {
   pageData: IPage;
@@ -31,7 +31,7 @@ export const RecursiveTreeRenderer = ({
   return (
     <>
       {isVisibleItem && (
-        <Item
+        <MenuItem
           id={id}
           level={level}
           newPath={newPath}
