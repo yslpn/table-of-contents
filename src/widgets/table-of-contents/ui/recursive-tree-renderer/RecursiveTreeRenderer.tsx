@@ -1,4 +1,4 @@
-import type { IEntities, IPage } from '../../../../types/toc-data';
+import type { IEntities, IPage } from '../../../../shared/types/toc-data';
 import { AnimatedWrapper } from '../animated-wrapper/AnimatedWrapper';
 
 interface IRecursiveTreeRenderer {

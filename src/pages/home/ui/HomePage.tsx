@@ -4,7 +4,7 @@ import { MainLayout } from '../../../shared/ui/main-layout';
 import type { ITableOfContentsData } from '../../../shared/types/toc-data';
 
 import { Header } from '../../../widgets/header';
-import { Navigation } from '../../../widgets/navigation/ui/Navigation';
+import { TableOfContents } from '../../../widgets/table-of-contents';
 
 export const HomePage = () => {
   const [data, setData] = useState<ITableOfContentsData>();
@@ -28,7 +28,7 @@ export const HomePage = () => {
       <Header />
       <main>
         <MainLayout>
-          <Navigation data={data} />
+          <TableOfContents data={data} withSearchInput={true} />
         </MainLayout>
       </main>
     </>
