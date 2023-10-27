@@ -7,14 +7,14 @@ I utilized [Feature-Sliced Design](https://feature-sliced.design/), an architect
 ```
 .
 ├── pages
-│   ├── home
-│   │   └── ui
-│   │       └── HomePage.tsx
-│   └── index.ts
+│   ├── index.ts
+│   └── home
+│       └── ui
+│           └── HomePage.tsx
 ├── shared
+│   ├── index.ts
 │   ├── api
 │   │   └── fetcher.ts
-│   ├── index.ts
 │   ├── types
 │   │   └── toc-data.ts
 │   └── ui
@@ -25,13 +25,13 @@ I utilized [Feature-Sliced Design](https://feature-sliced.design/), an architect
 │           ├── Spinner.tsx
 │           └── index.module.css
 └── widgets
+    ├── index.ts
     ├── header
     │   ├── assets
     │   │   └── home.svg
     │   └── ui
     │       ├── Header.tsx
     │       └── index.module.css
-    ├── index.ts
     └── table-of-contents
         ├── assets
         │   └── arrow.svg
@@ -39,13 +39,13 @@ I utilized [Feature-Sliced Design](https://feature-sliced.design/), an architect
         │   ├── helpers.ts
         │   └── hooks.ts
         └── ui
-            ├── item
-            │   ├── Item.tsx
-            │   └── index.module.css
             ├── active-path-provider
             │   └── ActivePathProvider.tsx
             ├── animated-wrapper
             │   └── AnimatedWrapper.tsx
+            ├── item
+            │   ├── Item.tsx
+            │   └── index.module.css
             ├── recursive-tree-renderer
             │   ├── RecursiveTreeRenderer.tsx
             │   └── index.module.css
