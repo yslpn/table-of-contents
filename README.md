@@ -41,8 +41,8 @@ I utilized [Feature-Sliced Design](https://feature-sliced.design/), an architect
         └── ui
             ├── active-path-provider
             │   └── ActivePathProvider.tsx
-            ├── item
-            │   ├── Item.tsx
+            ├── menu-item
+            │   ├── MenuItem.tsx
             │   └── index.module.css
             ├── recursive-tree-renderer
             │   ├── RecursiveTreeRenderer.tsx
