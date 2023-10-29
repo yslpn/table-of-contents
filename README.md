@@ -1,12 +1,9 @@
 # Table of Contents
 
-## Github Pages
+## Check production build
 
-[https://yslpn.github.io/table-of-contents/](https://yslpn.github.io/table-of-contents/)
-
-## Check production build locally
-
-`npm ci && npm run build && npm run preview`
+- GitHub Pages [https://yslpn.github.io/table-of-contents/](https://yslpn.github.io/table-of-contents/)
+- Build locally `npm ci && npm run build && npm run preview`
 
 ## Structure
 
