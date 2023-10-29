@@ -1,59 +1,97 @@
 import {
   useCallback,
-  useEffect,
   useMemo,
   useRef,
-  type KeyboardEvent,
+  type MouseEvent,
+  useEffect,
 } from 'react';
 import { clsx } from 'clsx';
 
+import { IPage } from '../../../../shared';
+
 import Arrow from '../../assets/arrow.svg?react';
-import { getHighlightedTextParts } from '../../lib/helpers';
 import { useActivePath, useSearchTerm } from '../../lib/hooks';
+import {
+  determineBackgroundColor,
+  getHighlightedTextParts,
+} from '../../lib/helpers';
 
 import css from './index.module.css';
 
 interface IItem {
   id: string;
   level: number;
-  newPath: string[];
-  parentId?: string;
   title: string;
   pages?: string[];
+  isExpanded: boolean;
+  parentId?: string;
+  path: string[];
+  setExpandedNodes: React.Dispatch<React.SetStateAction<Set<string>>>;
+
+  allPages: Record<string, IPage>;
 }
 
 export const MenuItem = ({
   id,
   level,
-  newPath,
   pages,
-  parentId,
   title,
+  isExpanded,
+  path,
+  setExpandedNodes,
+  allPages,
 }: IItem) => {
-  const { activePath, setActivePath } = useActivePath();
+  const { activePath, setActivePath, activeId, setActiveId } = useActivePath();
+
   const { searchTerm, setSearchTerm } = useSearchTerm();
   const elementRef = useRef<HTMLDivElement>(null);
 
-  const isOpen = activePath.includes(id);
-  const isLastActive = activePath.at(-1) === id;
-  const isParentActive = parentId && activePath.includes(parentId);
-  const isParentLevelNotFirst = parentId && activePath.indexOf(parentId) > 0;
-  const isCurrentLevel = activePath.at(-1) === parentId;
+  const backgroundColorKey = determineBackgroundColor(
+    id,
+    allPages,
+    activePath,
+    searchTerm,
+  );
 
-  const icon = useMemo(
-    () => pages && <Arrow className={clsx(css.icon, isOpen && css.open)} />,
-    [isOpen, pages],
+  const highlightSearchTerm = useCallback(
+    (text: string, searchTerm: string) => {
+      const parts = getHighlightedTextParts(text, searchTerm);
+
+      return (
+        <span>
+          {parts.map((part, index) =>
+            part.highlight ? (
+              <span key={index} className={css.highlightSearchTerm}>
+                {part.text}
+              </span>
+            ) : (
+              part.text
+            ),
+          )}
+        </span>
+      );
+    },
+    [],
   );
 
   const handleClick = useCallback(() => {
     if (searchTerm) {
       setSearchTerm('');
     }
-    setActivePath(isLastActive ? newPath.slice(0, -1) : newPath);
-  }, [isLastActive, newPath, searchTerm, setActivePath, setSearchTerm]);
 
-  const handleKeyDown = useCallback(
-    (event: KeyboardEvent) => {
+    if (pages) {
+      setActivePath(path);
+    } else {
+      setActivePath(path.slice(0, -1));
+    }
+
+    setActiveId(id);
+
+    // toggleNode(id);
+  }, [pages, setActiveId, id, setActivePath, path, searchTerm, setSearchTerm]);
+
+  const handleKeyPress = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (event.key === 'Enter') {
         handleClick();
       }
@@ -61,26 +99,46 @@ export const MenuItem = ({
     [handleClick],
   );
 
-  const highlightSearchTerm = (text: string, searchTerm: string) => {
-    const parts = getHighlightedTextParts(text, searchTerm);
+  const toggleNode = useCallback(
+    (nodeId: string) => {
+      setExpandedNodes((prevState) => {
+        const newSet = new Set(prevState);
+        if (newSet.has(nodeId)) {
+          newSet.delete(nodeId);
+        } else {
+          newSet.add(nodeId);
+        }
+        return newSet;
+      });
+    },
+    [setExpandedNodes],
+  );
 
-    return (
-      <span>
-        {parts.map((part, index) =>
-          part.highlight ? (
-            <span key={index} className={css.highlightSearchTerm}>
-              {part.text}
-            </span>
-          ) : (
-            part.text
-          ),
-        )}
-      </span>
-    );
-  };
+  const toggle = useMemo(
+    () =>
+      pages && (
+        <button
+          className={css.toggle}
+          onClick={(event: MouseEvent<HTMLButtonElement>) => {
+            event.stopPropagation();
+            toggleNode(id);
+          }}
+          type="button"
+          aria-label={`Toggle ${title}`}
+        >
+          <Arrow
+            className={clsx(
+              css.toggleIcon,
+              isExpanded && css.toggleIconExpanded,
+            )}
+          />
+        </button>
+      ),
+    [id, isExpanded, pages, title, toggleNode],
+  );
 
   useEffect(() => {
-    if (isLastActive) {
+    if (activePath.at(-1) === id) {
       const timeout = setTimeout(() => {
         elementRef.current?.scrollIntoView({
           behavior: 'smooth',
@@ -92,30 +150,26 @@ export const MenuItem = ({
         clearTimeout(timeout);
       };
     }
-  }, [isLastActive]);
+  }, [activePath, id]);
 
   return (
     <div
       ref={elementRef}
-      role={'menuitem'}
       tabIndex={0}
-      onClick={handleClick}
+      role={'menuitem'}
       style={{
         paddingLeft: `${level * 16 + 44}px`,
       }}
       className={clsx(
-        !searchTerm &&
-          !isLastActive &&
-          (isOpen || isParentActive) &&
-          (isCurrentLevel && isParentLevelNotFirst
-            ? css.highlightFirstLevel
-            : css.highlightSecondLevel),
         css.item,
-        isLastActive && css.last,
+        backgroundColorKey === 'SECOND_LEVEL' && css.highlightSecondLevel,
+        backgroundColorKey === 'FIRST_LEVEL' && css.highlightFirstLevel,
+        activeId === id && css.lastActive,
       )}
-      onKeyDown={handleKeyDown}
+      onClick={handleClick}
+      onKeyDown={handleKeyPress}
     >
-      {icon}
+      {toggle}
       {searchTerm ? highlightSearchTerm(title, searchTerm) : title}
     </div>
   );
