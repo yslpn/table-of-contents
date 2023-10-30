@@ -9,13 +9,11 @@
   font-weight: 400;
   line-height: 20px;
   color: #fff;
-  text-align: left;
   text-wrap: balance;
   letter-spacing: 0.058px;
   cursor: pointer;
   user-select: none;
   background-color: #19191c;
-  border: none;
   transition: filter 0.125s ease-in-out;
   -webkit-tap-highlight-color: transparent;
 
@@ -41,35 +39,17 @@
   }
 }
 
-.toggle {
-  flex-shrink: 0;
-  margin-left: -20px;
-  line-height: 0;
-  color: inherit;
-  cursor: pointer;
-  background: none;
-  border: none;
-
-  &:focus-visible {
-    outline: 2px solid #fff;
-  }
+.last {
+  color: white;
+  background-color: #6b57ff;
 
   &:hover {
-    color: #6b57ff;
+    background-color: #6b57ff;
+    filter: brightness(95%);
   }
 }
 
-.toggleIcon {
-  transition-timing-function: ease-in-out;
-  transition-duration: 0.2s;
-  transition-property: color, transform;
-}
-
-.toggleIconExpanded {
-  transform: rotate(90deg);
-}
-
-.highlightSecondLevel {
+.highlightFirstLevel {
   background-color: #303033;
 
   @media (prefers-color-scheme: light) {
@@ -77,27 +57,11 @@
   }
 }
 
-.highlightFirstLevel {
+.highlightSecondLevel {
   background-color: #252527;
 
   @media (prefers-color-scheme: light) {
     background-color: #f4f4f4;
-  }
-}
-
-.lastActive {
-  color: #fff;
-  background-color: #6b57ff;
-
-  &:hover {
-    background-color: #6b57ff;
-    filter: brightness(95%);
-  }
-
-  .toggle {
-    &:hover {
-      color: #000;
-    }
   }
 }
 
@@ -109,4 +73,14 @@
     color: #fff;
     background-color: #27282c;
   }
+}
+
+.icon {
+  flex-shrink: 0;
+  margin-left: -20px;
+  transition: all 0.2s ease-in-out;
+}
+
+.open {
+  transform: rotate(90deg);
 }

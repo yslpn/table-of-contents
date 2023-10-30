@@ -17,7 +17,7 @@ export const TableOfContents = ({
   data,
   withSearchInput,
 }: ITableOfContents) => {
-  const [animationParent, enableAnimations] = useAutoAnimate();
+  const [animationParent] = useAutoAnimate();
 
   return (
     <SearchTermProvider>
@@ -32,8 +32,6 @@ export const TableOfContents = ({
                   pageData={data.entities.pages[topId]}
                   entities={data.entities}
                   path={[]}
-                  allPages={data.entities.pages}
-                  enableAnimations={enableAnimations}
                 />
               ))}
             </div>
