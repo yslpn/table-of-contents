@@ -1,4 +1,5 @@
 import type { IEntities, IPage } from '../../../../shared';
+import { checkIsVisible } from '../../lib/helpers';
 import { useActivePath, useSearchTerm } from '../../lib/hooks';
 import { MenuItem } from '../menu-item/MenuItem';
 
@@ -13,20 +14,20 @@ export const RecursiveTreeRenderer = ({
   entities,
   path,
 }: IRecursiveTreeRenderer) => {
+  const { activePath } = useActivePath();
+  const { searchTerm } = useSearchTerm();
+
   const { title, pages, id, parentId, level } = pageData;
 
   const newPath = [...path, id];
 
-  const { activePath } = useActivePath();
-  const { searchTerm } = useSearchTerm();
-
-  const isSearchTermInTitle =
-    searchTerm && title.toLowerCase().includes(searchTerm.toLowerCase());
-  const isTopLevelItem = path.length === 0;
-  const isParentItemActive = parentId && activePath.includes(parentId);
-  const isVisibleItem = searchTerm
-    ? isSearchTermInTitle
-    : isTopLevelItem || isParentItemActive;
+  const isVisibleItem = checkIsVisible(
+    searchTerm,
+    title,
+    path,
+    activePath,
+    parentId,
+  );
 
   return (
     <>
@@ -34,7 +35,7 @@ export const RecursiveTreeRenderer = ({
         <MenuItem
           id={id}
           level={level}
-          newPath={newPath}
+          path={newPath}
           title={title}
           pages={pages}
           parentId={parentId}

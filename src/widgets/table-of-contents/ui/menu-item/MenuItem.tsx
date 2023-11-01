@@ -1,14 +1,11 @@
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  type KeyboardEvent,
-} from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { clsx } from 'clsx';
 
 import Arrow from '../../assets/arrow.svg?react';
-import { getHighlightedTextParts } from '../../lib/helpers';
+import {
+  determineHighlightClasses,
+  getHighlightedTextParts,
+} from '../../lib/helpers';
 import { useActivePath, useSearchTerm } from '../../lib/hooks';
 
 import css from './index.module.css';
@@ -16,29 +13,35 @@ import css from './index.module.css';
 interface IItem {
   id: string;
   level: number;
-  newPath: string[];
-  parentId?: string;
-  title: string;
   pages?: string[];
+  parentId?: string;
+  path: string[];
+  title: string;
 }
 
 export const MenuItem = ({
   id,
   level,
-  newPath,
   pages,
   parentId,
+  path,
   title,
 }: IItem) => {
-  const { activePath, setActivePath } = useActivePath();
+  const { activePath, setActivePath, activeId, setActiveId } = useActivePath();
   const { searchTerm, setSearchTerm } = useSearchTerm();
-  const elementRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const isOpen = activePath.includes(id);
-  const isLastActive = activePath.at(-1) === id;
-  const isParentActive = parentId && activePath.includes(parentId);
-  const isParentLevelNotFirst = parentId && activePath.indexOf(parentId) > 0;
-  const isCurrentLevel = activePath.at(-1) === parentId;
+  const isActive = activeId === id;
+
+  const { isFirstLevel, isSecondLevel } = determineHighlightClasses(
+    parentId,
+    id,
+    activePath,
+    level,
+    isOpen,
+    searchTerm,
+  );
 
   const icon = useMemo(
     () => pages && <Arrow className={clsx(css.icon, isOpen && css.open)} />,
@@ -46,20 +49,33 @@ export const MenuItem = ({
   );
 
   const handleClick = useCallback(() => {
+    setActiveId(id);
+
     if (searchTerm) {
       setSearchTerm('');
     }
-    setActivePath(isLastActive ? newPath.slice(0, -1) : newPath);
-  }, [isLastActive, newPath, searchTerm, setActivePath, setSearchTerm]);
 
-  const handleKeyDown = useCallback(
-    (event: KeyboardEvent) => {
-      if (event.key === 'Enter') {
-        handleClick();
-      }
-    },
-    [handleClick],
-  );
+    if (isActive && activePath.at(-1) === id) {
+      setActivePath(path.slice(0, -1));
+      return;
+    }
+
+    if (pages) {
+      setActivePath(path);
+    } else {
+      setActivePath(path.slice(0, -1));
+    }
+  }, [
+    activePath,
+    id,
+    isActive,
+    path,
+    pages,
+    searchTerm,
+    setActiveId,
+    setActivePath,
+    setSearchTerm,
+  ]);
 
   const highlightSearchTerm = (text: string, searchTerm: string) => {
     const parts = getHighlightedTextParts(text, searchTerm);
@@ -80,43 +96,37 @@ export const MenuItem = ({
   };
 
   useEffect(() => {
-    if (isLastActive) {
+    if (isActive) {
       const timeout = setTimeout(() => {
-        elementRef.current?.scrollIntoView({
+        buttonRef.current?.scrollIntoView({
           behavior: 'smooth',
           block: 'center',
         });
-      }, 250);
+      }, 500);
 
       return () => {
         clearTimeout(timeout);
       };
     }
-  }, [isLastActive]);
+  }, [isActive]);
 
   return (
-    <div
-      ref={elementRef}
+    <button
+      ref={buttonRef}
       role={'menuitem'}
-      tabIndex={0}
       onClick={handleClick}
       style={{
         paddingLeft: `${level * 16 + 44}px`,
       }}
       className={clsx(
-        !searchTerm &&
-          !isLastActive &&
-          (isOpen || isParentActive) &&
-          (isCurrentLevel && isParentLevelNotFirst
-            ? css.highlightFirstLevel
-            : css.highlightSecondLevel),
+        isFirstLevel && css.highlightFirstLevel,
+        isSecondLevel && css.highlightSecondLevel,
+        isActive && css.active,
         css.item,
-        isLastActive && css.last,
       )}
-      onKeyDown={handleKeyDown}
     >
       {icon}
       {searchTerm ? highlightSearchTerm(title, searchTerm) : title}
-    </div>
+    </button>
   );
 };
