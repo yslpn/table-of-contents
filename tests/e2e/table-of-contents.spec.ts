@@ -27,6 +27,7 @@ test.describe('Table of contents', () => {
     test('Count menu items before and after search', async ({ page }) => {
       await page.goto('http://localhost:5173/table-of-contents/');
       await page.locator('data-test-id=toc-menu').isVisible();
+      await page.waitForTimeout(1000);
 
       const initialMenuItemsCount = await page.$$eval(
         'data-test-id=toc-menu-item',
