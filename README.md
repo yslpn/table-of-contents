@@ -105,3 +105,19 @@ Serves the production build locally for previewing. This is useful for checking 
 `npm run prepare`
 
 Sets up Husky for the project. Husky improves your commits and more with 'hooks' you can use to lint commit messages, run tests, lint code, etc.
+
+`npm run test:unit`
+
+Executes unit tests for the project using Jest.
+
+`npm run test:e2e`
+
+Runs end-to-end tests for the project using Playwright.
+
+`npm run test:e2e:report`
+
+Performs end-to-end tests with Playwright and generates an HTML report. After execution, the report is displayed.
+
+`npm run test`
+
+Runs both unit tests with Jest and end-to-end tests with Playwright sequentially.

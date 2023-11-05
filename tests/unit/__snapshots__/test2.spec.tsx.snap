@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test render Header 1`] = `
+<header
+  className="header"
+>
+  <div
+    className="container"
+  >
+    <p
+      className="text"
+    >
+      <IconComponent />
+      Product name
+    </p>
+  </div>
+</header>
+`;
