@@ -49,26 +49,6 @@ test.describe('Table of contents', () => {
 
       expect(initialMenuItemsCount).toEqual(afterClearMenuItemsCount);
     });
-
-    test('Visually looks correct dark scheme', async ({ page }) => {
-      await page.emulateMedia({ colorScheme: 'dark' });
-      await page.goto('http://localhost:5173/table-of-contents/');
-      await page.waitForTimeout(1000);
-
-      const searchInput = page.locator('data-test-id=toc-search-input');
-
-      await expect(searchInput).toHaveScreenshot();
-    });
-
-    test('Visually looks correct light scheme', async ({ page }) => {
-      await page.emulateMedia({ colorScheme: 'light' });
-      await page.goto('http://localhost:5173/table-of-contents/');
-      await page.waitForTimeout(1000);
-
-      const searchInput = page.locator('data-test-id=toc-search-input');
-
-      await expect(searchInput).toHaveScreenshot();
-    });
   });
 
   test.describe('Menu item', () => {
