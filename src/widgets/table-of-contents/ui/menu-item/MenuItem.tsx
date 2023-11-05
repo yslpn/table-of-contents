@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import { clsx } from 'clsx';
 
 import Arrow from '../../assets/arrow.svg?react';
@@ -53,6 +53,13 @@ export const MenuItem = ({
 
     if (searchTerm) {
       setSearchTerm('');
+
+      setTimeout(() => {
+        buttonRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+      }, 500);
     }
 
     if (isActive && activePath.at(-1) === id) {
@@ -94,21 +101,6 @@ export const MenuItem = ({
       </span>
     );
   };
-
-  useEffect(() => {
-    if (isActive) {
-      const timeout = setTimeout(() => {
-        buttonRef.current?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-        });
-      }, 500);
-
-      return () => {
-        clearTimeout(timeout);
-      };
-    }
-  }, [isActive]);
 
   return (
     <button
