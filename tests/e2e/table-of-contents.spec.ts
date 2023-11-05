@@ -71,7 +71,7 @@ test.describe('Table of contents', () => {
   test.describe('Menu item', () => {
     test('Toggle menu item', async ({ page }) => {
       await page.goto('http://localhost:5173/table-of-contents/');
-      await page.locator('data-test-id=toc-menu').isVisible();
+      await page.waitForTimeout(1000);
 
       const menuItemsInit = await page
         .locator('data-test-id=toc-menu-item')
