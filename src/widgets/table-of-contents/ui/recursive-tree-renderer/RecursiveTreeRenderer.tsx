@@ -1,6 +1,8 @@
 import type { IEntities, IPage } from '../../../../shared';
+
 import { checkIsVisible } from '../../lib/helpers';
 import { useActivePath, useSearchTerm } from '../../lib/hooks';
+
 import { MenuItem } from '../menu-item/MenuItem';
 
 interface IRecursiveTreeRenderer {

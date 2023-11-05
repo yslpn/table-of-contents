@@ -1,50 +1,40 @@
-import { useAutoAnimate } from '@formkit/auto-animate/react';
-import { type ITableOfContentsData, Spinner } from '../../../../shared';
+import { Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+
+import { Spinner } from '../../../../shared';
 
 import { SearchTermInput } from '../search-term-input/SearchTermInput';
-import { RecursiveTreeRenderer } from '../recursive-tree-renderer/RecursiveTreeRenderer';
 import { SearchTermProvider } from '../search-term-provider/SearchTermProvider';
 import { ActivePathProvider } from '../active-path-provider/ActivePathProvider';
+import { MenuItems } from '../menu-items/MenuItems';
 
 import css from './index.module.css';
 
 interface ITableOfContents {
-  data?: ITableOfContentsData;
   withSearchInput: boolean;
 }
 
-export const TableOfContents = ({
-  data,
-  withSearchInput,
-}: ITableOfContents) => {
-  const [animationParent] = useAutoAnimate();
+export const TableOfContents = ({ withSearchInput }: ITableOfContents) => {
+  const suspenseFallback = (
+    <div className={css.fallbackWrapper}>
+      <Spinner />
+    </div>
+  );
+
+  const errorFallback = (
+    <div className={css.fallbackWrapper}>Something went wrong</div>
+  );
 
   return (
     <SearchTermProvider>
       <ActivePathProvider>
         <nav className={css.wrapper}>
           {withSearchInput && <SearchTermInput />}
-          {data ? (
-            <div
-              role="menu"
-              aria-label="Navigation menu"
-              ref={animationParent}
-              data-test-id="toc-menu"
-            >
-              {data.topLevelIds.map((topId) => (
-                <RecursiveTreeRenderer
-                  key={topId}
-                  pageData={data.entities.pages[topId]}
-                  entities={data.entities}
-                  path={[]}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className={css.spinnerWrapper}>
-              <Spinner />
-            </div>
-          )}
+          <ErrorBoundary fallback={errorFallback}>
+            <Suspense fallback={suspenseFallback}>
+              <MenuItems />
+            </Suspense>
+          </ErrorBoundary>
         </nav>
       </ActivePathProvider>
     </SearchTermProvider>

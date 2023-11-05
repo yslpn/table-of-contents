@@ -12,9 +12,10 @@
   }
 }
 
-.spinnerWrapper {
+.fallbackWrapper {
   position: absolute;
   inset: 0;
+  top: 36px;
   display: flex;
   align-items: center;
   justify-content: center;

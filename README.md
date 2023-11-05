@@ -19,7 +19,7 @@ I utilized [Feature-Sliced Design](https://feature-sliced.design/), an architect
 ├── shared
 │   ├── index.ts
 │   ├── api
-│   │   └── fetcher.ts
+│   │   └── base.ts
 │   ├── types
 │   │   └── toc-data.ts
 │   └── ui
@@ -49,6 +49,8 @@ I utilized [Feature-Sliced Design](https://feature-sliced.design/), an architect
             ├── menu-item
             │   ├── MenuItem.tsx
             │   └── index.module.css
+            ├── menu-items
+            │   └── MenuItems.tsx
             ├── recursive-tree-renderer
             │   ├── RecursiveTreeRenderer.tsx
             │   └── index.module.css
