@@ -1,8 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test render Header 1`] = `
+exports[`Header component should match the snapshot 1`] = `
 <header
   className="header"
+  data-test-id="page-header"
 >
   <div
     className="container"

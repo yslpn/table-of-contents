@@ -29,7 +29,7 @@ export const SearchTermInput = () => {
 
   return (
     <>
-      <label htmlFor="search-input" className={'visuallyHidden'}>
+      <label htmlFor="search-input" className="visuallyHidden">
         Search menu items
       </label>
       <input
@@ -40,6 +40,7 @@ export const SearchTermInput = () => {
         value={inputValue}
         onChange={handleChange}
         autoComplete="off"
+        data-test-id="toc-search-input"
       />
     </>
   );

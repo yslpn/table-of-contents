@@ -2,6 +2,7 @@ import { useCallback, useMemo, useRef } from 'react';
 import { clsx } from 'clsx';
 
 import Arrow from '../../assets/arrow.svg?react';
+
 import {
   determineHighlightClasses,
   getHighlightedTextParts,
@@ -34,17 +35,23 @@ export const MenuItem = ({
   const isOpen = activePath.includes(id);
   const isActive = activeId === id;
 
-  const { isFirstLevel, isSecondLevel } = determineHighlightClasses(
+  const { isFirstLevel, isSecondLevel } = determineHighlightClasses({
     parentId,
     id,
     activePath,
     level,
     isOpen,
     searchTerm,
-  );
+  });
 
   const icon = useMemo(
-    () => pages && <Arrow className={clsx(css.icon, isOpen && css.open)} />,
+    () =>
+      pages && (
+        <Arrow
+          className={clsx(css.icon, isOpen && css.open)}
+          data-test-id={'toc-menu-item-icon'}
+        />
+      ),
     [isOpen, pages],
   );
 
@@ -85,7 +92,7 @@ export const MenuItem = ({
   ]);
 
   const highlightSearchTerm = (text: string, searchTerm: string) => {
-    const parts = getHighlightedTextParts(text, searchTerm);
+    const parts = getHighlightedTextParts({ text, searchTerm });
 
     return (
       <span>
@@ -116,6 +123,7 @@ export const MenuItem = ({
         isActive && css.active,
         css.item,
       )}
+      data-test-id="toc-menu-item"
     >
       {icon}
       {searchTerm ? highlightSearchTerm(title, searchTerm) : title}

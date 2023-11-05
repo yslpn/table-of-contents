@@ -21,13 +21,13 @@ export const RecursiveTreeRenderer = ({
 
   const newPath = [...path, id];
 
-  const isVisibleItem = checkIsVisible(
+  const isVisibleItem = checkIsVisible({
     searchTerm,
     title,
     path,
     activePath,
     parentId,
-  );
+  });
 
   return (
     <>

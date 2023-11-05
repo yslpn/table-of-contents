@@ -25,7 +25,12 @@ export const TableOfContents = ({
         <nav className={css.wrapper}>
           {withSearchInput && <SearchTermInput />}
           {data ? (
-            <div role="menu" aria-label="Navigation menu" ref={animationParent}>
+            <div
+              role="menu"
+              aria-label="Navigation menu"
+              ref={animationParent}
+              data-test-id="toc-menu"
+            >
               {data.topLevelIds.map((topId) => (
                 <RecursiveTreeRenderer
                   key={topId}

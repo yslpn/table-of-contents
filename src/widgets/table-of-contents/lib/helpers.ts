@@ -1,8 +1,17 @@
-export const getHighlightedTextParts = (
-  text: string,
-  searchTerm: string,
-): { text: string; highlight: boolean }[] => {
-  const parts = text.split(new RegExp(`(${searchTerm})`, 'gi'));
+export const getHighlightedTextParts = ({
+  text,
+  searchTerm,
+}: {
+  text: string;
+  searchTerm: string;
+}) => {
+  if (!searchTerm) {
+    return [{ text: text, highlight: false }];
+  }
+
+  const parts = text
+    .split(new RegExp(`(${searchTerm})`, 'gi'))
+    .filter((part) => part !== '');
 
   return parts.map((part) => ({
     text: part,
@@ -10,13 +19,19 @@ export const getHighlightedTextParts = (
   }));
 };
 
-export const checkIsVisible = (
-  searchTerm: string,
-  title: string,
-  path: string[],
-  activePath: string[],
-  parentId: string | undefined,
-): boolean => {
+export const checkIsVisible = ({
+  searchTerm,
+  title,
+  path,
+  activePath,
+  parentId,
+}: {
+  searchTerm: string;
+  title: string;
+  path: string[];
+  activePath: string[];
+  parentId: string | undefined;
+}) => {
   const isSearchTermInTitle = searchTerm
     ? title.toLowerCase().includes(searchTerm.toLowerCase())
     : true;
@@ -28,14 +43,21 @@ export const checkIsVisible = (
     : isTopLevelItem || isParentItemActive;
 };
 
-export const determineHighlightClasses = (
-  parentId: string | undefined,
-  id: string,
-  activePath: string[],
-  level: number,
-  isOpen: boolean,
-  searchTerm: string,
-) => {
+export const determineHighlightClasses = ({
+  parentId,
+  id,
+  activePath,
+  level,
+  isOpen,
+  searchTerm,
+}: {
+  parentId: string | undefined;
+  id: string;
+  activePath: string[];
+  level: number;
+  isOpen: boolean;
+  searchTerm: string;
+}) => {
   const isParentInPath = parentId ? activePath.includes(parentId) : false;
   const isCurrentInPath = activePath.includes(id);
   const withHighlight = !searchTerm && (isParentInPath || isCurrentInPath);
@@ -48,7 +70,7 @@ export const determineHighlightClasses = (
     (level !== 1 || isOpen);
 
   return {
-    isFirstLevel: withHighlight && baseHighlightCondition,
-    isSecondLevel: withHighlight && !baseHighlightCondition,
+    isSecondLevel: withHighlight && baseHighlightCondition,
+    isFirstLevel: withHighlight && !baseHighlightCondition,
   };
 };
