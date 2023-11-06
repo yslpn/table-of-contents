@@ -1,6 +1,8 @@
+import { type IPage } from '../../src/shared';
 import {
   checkIsVisible,
   determineHighlightClasses,
+  findPathById,
   getHighlightedTextParts,
 } from '../../src/widgets/table-of-contents/lib/helpers';
 
@@ -200,6 +202,80 @@ describe('table-of-contents helpers', () => {
         isFirstLevel: false,
         isSecondLevel: false,
       });
+    });
+  });
+
+  describe('findPathById', () => {
+    const mockPages: Record<string, IPage> = {
+      root: {
+        id: 'root',
+        title: 'My super root title',
+        parentId: 'randomParent',
+        level: 0,
+        tabIndex: 0,
+      },
+      section1: {
+        id: 'section1',
+        title: 'Section 1',
+        parentId: 'root',
+        level: 1,
+        tabIndex: 1,
+      },
+      subsection1: {
+        id: 'subsection1',
+        title: 'Subsection 1',
+        parentId: 'section1',
+        level: 2,
+        tabIndex: 2,
+      },
+      subsubsection1: {
+        id: 'subsubsection1',
+        title: 'Subsubsection 1',
+        parentId: 'subsection1',
+        level: 3,
+        tabIndex: 3,
+      },
+    };
+
+    it('should return the correct path for a nested page', () => {
+      const path = findPathById({
+        pages: mockPages,
+        targetId: 'subsubsection1',
+      });
+
+      expect(path).toEqual([
+        'root',
+        'section1',
+        'subsection1',
+        'subsubsection1',
+      ]);
+    });
+
+    it('should return the correct path for a root page', () => {
+      const path = findPathById({ pages: mockPages, targetId: 'root' });
+
+      expect(path).toEqual(['root']);
+    });
+
+    it('should throw an error if the page does not have a parentId and is not root', () => {
+      const orphanPageId = 'orphanPage';
+
+      mockPages[orphanPageId] = {
+        id: orphanPageId,
+        title: 'New Page',
+        level: 1,
+        tabIndex: 4,
+      };
+
+      expect(() => {
+        findPathById({ pages: mockPages, targetId: orphanPageId });
+      }).toThrow('No parent id found for the given page');
+    });
+
+    it('should throw an error if the page does not exist', () => {
+      expect(() => {
+        findPathById({ pages: mockPages, targetId: 'nonExistent' });
+      }).toThrow('No page found for the given id');
     });
   });
 });

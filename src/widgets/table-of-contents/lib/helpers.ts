@@ -85,7 +85,11 @@ export const findPathById = ({
   targetId: string;
 }) => {
   const findParentId = (currentPageId: string, path: string[]): string[] => {
-    const currentPage: IPage = pages[currentPageId];
+    const currentPage: IPage | undefined = pages[currentPageId];
+
+    if (typeof currentPage !== 'object') {
+      throw new Error('No page found for the given id');
+    }
 
     path.unshift(currentPageId);
 
