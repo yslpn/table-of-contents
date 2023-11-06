@@ -1,3 +1,4 @@
+import { useLayoutEffect } from 'react';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 
 import {
@@ -6,6 +7,9 @@ import {
   handlePromiseWithSuspense,
 } from '../../../../shared';
 
+import { useActivePath } from '../../lib/hooks';
+import { findPathById } from '../../lib/helpers';
+
 import { RecursiveTreeRenderer } from '../recursive-tree-renderer/RecursiveTreeRenderer';
 
 const fetchData = handlePromiseWithSuspense(
@@ -13,8 +17,18 @@ const fetchData = handlePromiseWithSuspense(
 );
 
 export const MenuItems = () => {
+  const { setActivePath, activeId } = useActivePath();
   const [animationParent] = useAutoAnimate();
   const data = fetchData();
+
+  useLayoutEffect(() => {
+    if (activeId) {
+      setActivePath(
+        findPathById({ pages: data.entities.pages, targetId: activeId }),
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div

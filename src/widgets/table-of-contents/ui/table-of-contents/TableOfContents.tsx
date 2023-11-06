@@ -12,9 +12,13 @@ import css from './index.module.css';
 
 interface ITableOfContents {
   withSearchInput: boolean;
+  initialActiveId?: string;
 }
 
-export const TableOfContents = ({ withSearchInput }: ITableOfContents) => {
+export const TableOfContents = ({
+  withSearchInput,
+  initialActiveId,
+}: ITableOfContents) => {
   const suspenseFallback = (
     <div className={css.fallbackWrapper}>
       <Spinner />
@@ -27,7 +31,7 @@ export const TableOfContents = ({ withSearchInput }: ITableOfContents) => {
 
   return (
     <SearchTermProvider>
-      <ActivePathProvider>
+      <ActivePathProvider initialActiveId={initialActiveId}>
         <nav className={css.wrapper}>
           {withSearchInput && <SearchTermInput />}
           <ErrorBoundary fallback={errorFallback}>

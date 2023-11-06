@@ -8,7 +8,10 @@ export const HomePage = () => {
       <Header />
       <main>
         <MainLayout>
-          <TableOfContents withSearchInput={true} />
+          <TableOfContents
+            withSearchInput={true}
+            // initialActiveId={'Tool_Windows'}
+          />
         </MainLayout>
       </main>
     </>

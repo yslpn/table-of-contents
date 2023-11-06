@@ -1,3 +1,5 @@
+import { IPage } from '../../../shared';
+
 export const getHighlightedTextParts = ({
   text,
   searchTerm,
@@ -73,4 +75,30 @@ export const determineHighlightClasses = ({
     isSecondLevel: withHighlight && baseHighlightCondition,
     isFirstLevel: withHighlight && !baseHighlightCondition,
   };
+};
+
+export const findPathById = ({
+  pages,
+  targetId,
+}: {
+  pages: Record<string, IPage>;
+  targetId: string;
+}) => {
+  const findParentId = (currentPageId: string, path: string[]): string[] => {
+    const currentPage: IPage = pages[currentPageId];
+
+    path.unshift(currentPageId);
+
+    if (currentPage.level === 0) {
+      return path;
+    }
+
+    if (!currentPage.parentId) {
+      throw new Error('No parent id found for the given page');
+    }
+
+    return findParentId(currentPage.parentId, path);
+  };
+
+  return findParentId(targetId, []);
 };

@@ -18,9 +18,15 @@ export const PathContext = createContext<IPathState>({
   },
 });
 
-export const ActivePathProvider = ({ children }: { children: ReactNode }) => {
+export const ActivePathProvider = ({
+  children,
+  initialActiveId = '',
+}: {
+  children: ReactNode;
+  initialActiveId?: string;
+}) => {
   const [activePath, setActivePath] = useState<string[]>([]);
-  const [activeId, setActiveId] = useState<string>('');
+  const [activeId, setActiveId] = useState<string>(initialActiveId);
 
   const contextValue = useMemo(() => {
     return { activePath, setActivePath, activeId, setActiveId };
